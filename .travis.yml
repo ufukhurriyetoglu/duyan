@@ -1,0 +1,11 @@
+language: java
+script: mvn -f duyan/pom.xml -q -X clean install
+jdk:
+  - oraclejdk7
+# whitelist
+branches:
+  only:
+    - master
+notifications:
+  email:
+    - emrahinan@gmail.com
