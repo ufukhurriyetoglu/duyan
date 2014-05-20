@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta charset="utf-8" />
+	<h:meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>DUYAN</title>
+
+	<!-- Bootstrap -->
+	<link
+		href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<!-- Custom styles for this template -->
+	<link
+		href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css"
+		rel="stylesheet" />
+</h:head>
+<h:body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" h:role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.xhtml">DUYAN</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="index.xhtml">Ana Sayfa</a></li>
+					<li><a href="#about">Hakkında</a></li>
+					<li><a href="#contact">İletişim</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="page-header">
+			<h1>
+				DUYAN: Türkçe Duygu Analizi Uygulaması <span
+					class="label label-success">Yeni</span>
+			</h1>
+		</div>
+		<div>
+			<p class="lead">
+				<b>DUYAN</b> uygulaması Türkçe metinleri üzerinde duygu analizi
+				yapmaktadır. Duygu analizinin odaklandığı ana nokta kullanıcıların
+				fikirlerinin pozitif veya negatif düşüncelerden hangisini
+				gösterdiğini bulmayı amaçlamaktadır. Bir diğer açıdan bakıldığında
+				duygu analizi görüşlerin tespiti olarak tanımlanabilir.
+			</p>
+		</div>
+		<div class="well">
+			<h:p>
+				Duygu analizi aşamasında üç ana yapıdan bahsedilmelidir;
+				<ul>
+					<li>Görüşün kaynağı</li>
+					<li>Görüşün hedefi</li>
+					<li>Görüşün tipi (olumlu, olumsuz, nötr)</li>
+				</ul>
+				Görüşün kaynağı ve hedefi Varlık İsmi Tanımlama yöntemleriyle bulunarak ayrıştırılmaktadır. 
+				Varlık isimleri tanımlanırken makine öğrenme algoritmalarından yararlanıldığı gibi
+				<a href="http://dbpedia.org/About">Dbpedia</a>'dan da faydalanılmıştır.
+				</h:p>
+		</div>
+		<p>Daha sonra bu kaynaktan hangi hedefe nasıl tipte bir görüş
+			geldiğini kutup(pozitif, nötr, negatif) değeri hesaplanarak görüşün
+			olumlu yada olumsuz olduğu bildirilir. Üç ana yapı kaynağın hedefle
+			ilgili hangi görüşte olduğunu göstermektedir. Görüşün kaynağı
+			bulunurken Varlık İsmi Tanımlama yöntemlerinin yanında tetikleyici
+			fiillerden de yararlanılmaktadır. Tetikleyici fiillere örnek vermek
+			gerekirse haber kaynaklarında çok sık kullanılan ”dedi”, ”diyor”,
+			”söyledi” gibi yüklemler gösterilebilir.</p>
+		<br />
+		<div class="col-sm-4">
+			<div class="list-group">
+				<a href="#" class="list-group-item active"> Geliştirilen Araçlar
+				</a> <a href="#" class="list-group-item">DUYAN: Türkçe Duygu Analizi
+					Uygulaması</a> <a href="vites.jsp" class="list-group-item">VİTES:
+					Türkçe Varlık İsmi Tanımlama Sistemi</a>
+			</div>
+		</div>
+		<!-- /.col-sm-4 -->
+	</div>
+	<div id="footer">
+		<div class="container">
+			<p class="text-muted">
+				&#169; 2014 <a href="http://seagentdev.ege.edu.tr">Seagent Lab.</a>
+				ve <a href="http://www.galaksiya.com">Galaksiya</a> 
+			</p>
+		</div>
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="../../dist/js/bootstrap.min.js"></script>
+</h:body>
+</html>
