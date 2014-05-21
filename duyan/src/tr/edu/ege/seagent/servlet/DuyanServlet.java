@@ -51,8 +51,9 @@ public class DuyanServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String charSet = "UTF-8";
-		// response.sendRedirect("http://www.google.com");
+//		String charSet = "windows-1254";
 		request.setCharacterEncoding(charSet);
+		response.setCharacterEncoding(charSet);
 		String content = request.getParameter("content");
 		String jsonResult = new TextAnalyser().analyzeText(content);
 		ArrayList<Entities> analyzeTextList = new TextAnalyser()
