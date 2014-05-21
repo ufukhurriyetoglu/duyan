@@ -53,6 +53,7 @@
 				<configuration>
 					<force>true</force>
 					<hostname>bagliveri.com</hostname>
+					<username>galaksiya</username>
 					<name>duyan.war</name>
 				</configuration>
 			</plugin>
