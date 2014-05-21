@@ -1,11 +1,16 @@
 language: java
-script: mvn -f duyan/pom.xml -q -X clean install
+before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
+script: mvn -f duyan/pom.xml -q -X clean deploy --settings target/travis/settings.xml
 jdk:
   - oraclejdk7
 # whitelist
 branches:
   only:
     - master
+env:
+  global:    
+    - secure: "WEm4yH90y6LjTS5fFP0UFKjjm7bLJCLF7ZegQHMogaxxXmOEr8cnceZH4BXbztAC+/OoO6r1iZ7Bhpg79V+Rq9EUKqZe0p8BYYQT4dZbcio6dDv2n3nT+A111Kny2moZavMrR7MTiuUVQQUsQx4S8mbt6lppnm9DEiTlVF+lGWc="
+    - secure: "kXaD9xb5ogK3x0HWpNR4+pkL9eALLHMvKu9252nrf8Aer7wJ1MK5m2rEwQ/mRvT3S2ImOcTFB+dcdwuU07jO2sNpNr87AJJmo2ay0mVznmLeC5PxsYCAFXBXMygrvqysyKCyu9FHxonhisQ8aIuYO2aobDWxJ/bXu/Bi0y2AWmU="
 notifications:
   email:
     - emrahinan@gmail.com
