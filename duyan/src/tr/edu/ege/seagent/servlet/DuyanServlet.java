@@ -1,6 +1,7 @@
 package tr.edu.ege.seagent.servlet;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -50,12 +51,16 @@ public class DuyanServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String webAppPath = getServletContext().getRealPath("/");
+		System.out.println(webAppPath);
 		String charSet = "UTF-8";
 //		String charSet = "windows-1254";
 		request.setCharacterEncoding(charSet);
 		response.setCharacterEncoding(charSet);
 		String content = request.getParameter("content");
-		String jsonResult = new TextAnalyser().analyzeText(content);
+		String path = new File(".").getCanonicalPath();
+		String property = System.getProperty("user.dir");
+		System.out.println(path + property);
 		ArrayList<Entities> analyzeTextList = new TextAnalyser()
 				.analyzeTextList(content);
 		String oldNamedEntity, newNamedEntity = "";
@@ -90,6 +95,7 @@ public class DuyanServlet extends HttpServlet {
 		String title = "<h1>Vites : Türkçe Varlık İsmi Tanımlama Sistemi</h1>";
 
 		if (selected.equals("Json")) {
+			String jsonResult = new TextAnalyser().analyzeText(content);
 			out.println(htmlHeadCode + "</head> \n" + "<body> \n" + jsonResult
 					+ "</body> \n" + "</html>");
 		} else if (selected.equals("Vites")) {
@@ -111,6 +117,7 @@ public class DuyanServlet extends HttpServlet {
 					+ "<div><br/><br/><br/><p> " + " <br/><br/>"
 					+ resultContent + "</p></div>" + " </body> \n" + "</html>");
 		} else { // brat GUI solution
+			String jsonResult = new TextAnalyser().analyzeText(content);
 			out.println(htmlHeadCode
 					+ " <link rel=\"stylesheet\" type=\"text/css\" href=\"http://weaver.nlplab.org/~brat/demo/v1.3/style-vis.css\" /> "
 					+ " <script type=\"text/javascript\" src=\"http://weaver.nlplab.org/~brat/demo/v1.3/client/lib/head.load.min.js\"></script>"

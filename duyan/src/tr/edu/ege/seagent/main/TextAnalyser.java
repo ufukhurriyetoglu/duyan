@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 
 import tr.edu.ege.seagent.dbpedia.Dbpedia;
 import tr.edu.ege.seagent.dbpedia.DbpediaSearcher;
+import tr.edu.ege.seagent.dbpedia.DbpediaSearcherInFile;
 import tr.edu.ege.seagent.json.Entities;
 import tr.edu.ege.seagent.json.JSONFileMaker;
 import tr.edu.ege.seagent.zemberek.DisambiguateSentences;
@@ -23,8 +24,12 @@ public class TextAnalyser {
 		ArrayList<Entities> entities = null;
 		ArrayList<String> nerList = extractNamedEntity(content);
 
-		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
-				.resolveInDbpedia(nerList);
+		// ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+		// .resolveInDbpedia(nerList);
+		
+		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
+		.resolveInDbpedia(nerList);
+		
 
 		if (nerList.size() == dbpediaList.size()) {
 			// if it is accomplished by %100
@@ -66,7 +71,7 @@ public class TextAnalyser {
 		String jsonResult = "";
 		ArrayList<String> nerList = extractNamedEntity(content);
 
-		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
 				.resolveInDbpedia(nerList);
 
 		if (nerList.size() == dbpediaList.size()) {
@@ -121,7 +126,7 @@ public class TextAnalyser {
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
-		String content = "Mustafa Kemal Atatürk İzmir ve İsmet İnönü, Türkiye Büyük Millet Meclisi açılışı için İstanbul'dan gelerek Ankara'da kaldılar.";
+		String content = "Mustafa Kemal Atatürk ve İsmet İnönü, Türkiye Büyük Millet Meclisi açılışı için İstanbul'dan gelerek Ankara'da kaldılar.";
 		// new TextAnalyser().demonstrateHTMLContent(content);
 
 		// // test named entities
@@ -131,10 +136,13 @@ public class TextAnalyser {
 		for (String str : nerList) {
 			System.out.println(str);
 		}
+		
+		System.out.println(new TextAnalyser().demonstrateHTMLContent(content));
+		
 		// problem bundan sonra başlar "Mustafa Kemal Atatürk İzmir" dbpedia
 		// search
 		// için n-gram uygulaması
-		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
 		.resolveInDbpedia(nerList);
 		for (Dbpedia dbpedia : dbpediaList) {
 			System.out.println(dbpedia.getUri());
