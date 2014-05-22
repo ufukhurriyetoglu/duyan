@@ -53,6 +53,8 @@
 				<configuration>
 					<force>true</force>
 					<hostname>bagliveri.com</hostname>
+					<username>${env.CI_DEPLOY_USERNAME}</username>
+      					<password>${env.CI_DEPLOY_PASSWORD}</password>
 					<name>duyan.war</name>
 				</configuration>
 			</plugin>
