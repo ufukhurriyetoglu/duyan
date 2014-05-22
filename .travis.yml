@@ -14,7 +14,6 @@ env:
 branches:
   only:
     - master
-
 notifications:
   email:
     - emrahinan@gmail.com
