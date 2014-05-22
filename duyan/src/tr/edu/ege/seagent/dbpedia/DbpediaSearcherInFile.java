@@ -14,6 +14,7 @@ public class DbpediaSearcherInFile {
 		ArrayList<Dbpedia> dbpediaFileList = fo.ReadFile(DBPEDIA_LIST_FILE);
 		showOutput(DBPEDIA_LIST_FILE, fo);
 
+		// foreach
 		ArrayList<Dbpedia> dbpediaList = new ArrayList<Dbpedia>();
 		for (int i = 0; i < dbpediaFileList.size(); i++) {
 			for (int j = 0; j < nerList.size(); j++) {
