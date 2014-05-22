@@ -53,8 +53,8 @@
 				<configuration>
 					<force>true</force>
 					<hostname>bagliveri.com</hostname>
-					<username>"WEm4yH90y6LjTS5fFP0UFKjjm7bLJCLF7ZegQHMogaxxXmOEr8cnceZH4BXbztAC+/OoO6r1iZ7Bhpg79V+Rq9EUKqZe0p8BYYQT4dZbcio6dDv2n3nT+A111Kny2moZavMrR7MTiuUVQQUsQx4S8mbt6lppnm9DEiTlVF+lGWc="</username>
-					<password>"kXaD9xb5ogK3x0HWpNR4+pkL9eALLHMvKu9252nrf8Aer7wJ1MK5m2rEwQ/mRvT3S2ImOcTFB+dcdwuU07jO2sNpNr87AJJmo2ay0mVznmLeC5PxsYCAFXBXMygrvqysyKCyu9FHxonhisQ8aIuYO2aobDWxJ/bXu/Bi0y2AWmU="</password>
+					<username>${env.CI_DEPLOY_USERNAME}</username>
+      					<password>${env.CI_DEPLOY_PASSWORD}</password>
 					<name>duyan.war</name>
 				</configuration>
 			</plugin>
