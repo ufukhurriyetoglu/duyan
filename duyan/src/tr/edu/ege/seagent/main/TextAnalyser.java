@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.json.simple.parser.ParseException;
 
 import tr.edu.ege.seagent.dbpedia.Dbpedia;
-import tr.edu.ege.seagent.dbpedia.DbpediaSearcher;
 import tr.edu.ege.seagent.dbpedia.DbpediaSearcherInFile;
 import tr.edu.ege.seagent.json.Entities;
 import tr.edu.ege.seagent.json.JSONFileMaker;
@@ -26,10 +25,9 @@ public class TextAnalyser {
 
 		// ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
 		// .resolveInDbpedia(nerList);
-		
+
 		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
-		.resolveInDbpedia(nerList);
-		
+				.resolveInDbpedia(nerList);
 
 		if (nerList.size() == dbpediaList.size()) {
 			// if it is accomplished by %100
@@ -99,35 +97,49 @@ public class TextAnalyser {
 	}
 
 	public String demonstrateHTMLContent(String content) throws IOException {
-		ArrayList<Entities> analyzeTextList = new TextAnalyser()
+		ArrayList<Entities> analyzeTextList = new ArrayList<Entities>();
+		analyzeTextList = new TextAnalyser()
 				.analyzeTextList(content);
 
 		String label = "";
 		String resultContent = content;
-		String oldNamedEntity, newNamedEntity = "";
-		String coloringEnd = "</span></a></mark>";
 
-		for (Entities entities : analyzeTextList) {
-			label = label + "<li>" + entities.getType() + " "
-					+ entities.getStart() + " " + entities.getEnd() + "</li>";
+		if (analyzeTextList == null) {
+			resultContent = "";
+		} else {
 
-			oldNamedEntity = content.substring(entities.getStart(),
-					entities.getEnd());
-			String coloringStart = " <mark style=\"background-color:blue\">"
-					+ " <a href=" + entities.getDbpediaUri() + " title="
-					+ entities.getType() + " class=\"tooltip\">"
-					+ "	<span title=" + entities.getDbpediaUri() + ">";
+			String oldNamedEntity, newNamedEntity = "";
+			String coloringEnd = "</span></a></mark>";
 
-			newNamedEntity = coloringStart + oldNamedEntity + coloringEnd;
-			resultContent = resultContent.replace(oldNamedEntity,
-					newNamedEntity);
+			for (Entities entities : analyzeTextList) {
+				label = label + "<li>" + entities.getType() + " "
+						+ entities.getStart() + " " + entities.getEnd()
+						+ "</li>";
+
+				oldNamedEntity = content.substring(entities.getStart(),
+						entities.getEnd());
+				String coloringStart = " <mark style=\"background-color:blue\">"
+						+ " <a href="
+						+ entities.getDbpediaUri()
+						+ " title="
+						+ entities.getType()
+						+ " class=\"tooltip\">"
+						+ "	<span title=" + entities.getDbpediaUri() + ">";
+
+				newNamedEntity = coloringStart + oldNamedEntity + coloringEnd;
+				resultContent = resultContent.replace(oldNamedEntity,
+						newNamedEntity);
+			}
 		}
 		return resultContent;
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
-		String content = "Mustafa Kemal Atatürk ve İsmet İnönü, Türkiye Büyük Millet Meclisi açılışı için İstanbul'dan gelerek Ankara'da kaldılar.";
+		// String content =
+		// "Mustafa Kemal Atatürk ve İsmet İnönü, Türkiye Büyük Millet Meclisi açılışı için İstanbul'dan gelerek Ankara'da kaldılar.";
 		// new TextAnalyser().demonstrateHTMLContent(content);
+
+		String content = "Yapılan düğünde Arda Turan hazır bulundu.";
 
 		// // test named entities
 		ArrayList<String> nerList = new TextAnalyser()
@@ -136,18 +148,17 @@ public class TextAnalyser {
 		for (String str : nerList) {
 			System.out.println(str);
 		}
-		
+
 		System.out.println(new TextAnalyser().demonstrateHTMLContent(content));
-		
+
 		// problem bundan sonra başlar "Mustafa Kemal Atatürk İzmir" dbpedia
 		// search
 		// için n-gram uygulaması
 		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
-		.resolveInDbpedia(nerList);
+				.resolveInDbpedia(nerList);
 		for (Dbpedia dbpedia : dbpediaList) {
 			System.out.println(dbpedia.getUri());
 		}
-
 
 	}
 

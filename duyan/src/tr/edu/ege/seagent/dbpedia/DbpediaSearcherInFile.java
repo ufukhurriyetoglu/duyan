@@ -7,7 +7,10 @@ import tr.edu.ege.seagent.fileio.FileOperator;
 public class DbpediaSearcherInFile {
 
 	// TODO absolute path
-	private static final String DBPEDIA_LIST_FILE = "/home/etmen/git/duyan/duyan/WebContent/files/dbpediaList.txt";
+	private static final String DBPEDIA_LIST_FILE = "/Users/emrahinan/Desktop/duyan/duyan/WebContent/files/dbpediaList.txt";
+
+	// private static final String DBPEDIA_LIST_FILE =
+	// "/home/etmen/git/duyan/duyan/WebContent/files/dbpediaList.txt";
 
 	public ArrayList<Dbpedia> resolveInDbpedia(ArrayList<String> nerList) {
 		FileOperator fo = new FileOperator();

@@ -34,7 +34,7 @@ public class DisambiguateSentences {
 					result = result + " " + entry.input;
 				// Location info: Loc, Dat(Dative = ismin -e hali) and
 				// Abl(Ablative = ismin -den hali)
-				else if ((!result.contains(entry.input) && (igWord
+				else if (Character.isUpperCase(entry.input.charAt(0)) && (!result.contains(entry.input) && (igWord
 						.contains("Dat") || igWord.contains("Loc") || igWord
 							.contains("Abl"))))
 					result = result + " " + entry.input;
