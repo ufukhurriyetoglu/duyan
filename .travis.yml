@@ -1,6 +1,6 @@
 language: java
 before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
-script: "mvn -f duyan/pom.xml -q clean deploy --settings target/travis/settings.xml"
+script: "mvn -f duyan/pom.xml -q clean install --settings target/travis/settings.xml"
 
 jdk:
   - oraclejdk7
