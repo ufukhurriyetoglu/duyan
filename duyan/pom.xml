@@ -41,7 +41,7 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.3.Final</version>
+				<version>7.5.Final</version>
 				<executions>
 					<execution>
 						<phase>install</phase>
@@ -52,9 +52,7 @@
 				</executions>
 				<configuration>
 					<force>true</force>
-					<hostname>bagliveri.com</hostname>
-					<username>${env.CI_DEPLOY_USERNAME}</username>
-      					<password>${env.CI_DEPLOY_PASSWORD}</password>
+					<hostname>67.210.247.2</hostname>
 					<name>duyan.war</name>
 				</configuration>
 			</plugin>
