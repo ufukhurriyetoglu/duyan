@@ -24,11 +24,11 @@ public class TextAnalyser {
 		ArrayList<Entities> entities = null;
 		ArrayList<String> nerList = extractNamedEntity(content);
 
-//		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
-//		 .resolveInDbpedia(nerList);
+		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+		 .resolveInDbpedia(nerList);
 
-		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
-				.resolveInDbpedia(nerList);
+		// ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
+		// .resolveInDbpedia(nerList);
 
 		if (nerList.size() == dbpediaList.size()) {
 			// if it is accomplished by %100
@@ -70,11 +70,11 @@ public class TextAnalyser {
 		String jsonResult = "";
 		ArrayList<String> nerList = extractNamedEntity(content);
 
-//		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
-//		 .resolveInDbpedia(nerList);
+		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+		 .resolveInDbpedia(nerList);
 		
-		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
-				.resolveInDbpedia(nerList);
+//		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
+//				.resolveInDbpedia(nerList);
 
 		if (nerList.size() == dbpediaList.size()) {
 			// if it is accomplished by %100
