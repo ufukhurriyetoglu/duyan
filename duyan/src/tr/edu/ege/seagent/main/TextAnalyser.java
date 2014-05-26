@@ -24,8 +24,8 @@ public class TextAnalyser {
 		ArrayList<Entities> entities = null;
 		ArrayList<String> nerList = extractNamedEntity(content);
 
-		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
-		 .resolveInDbpedia(nerList);
+		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+				.resolveInDbpedia(nerList);
 
 		// ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
 		// .resolveInDbpedia(nerList);
@@ -70,11 +70,11 @@ public class TextAnalyser {
 		String jsonResult = "";
 		ArrayList<String> nerList = extractNamedEntity(content);
 
-		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
-		 .resolveInDbpedia(nerList);
-		
-//		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
-//				.resolveInDbpedia(nerList);
+		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+				.resolveInDbpedia(nerList);
+
+		// ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
+		// .resolveInDbpedia(nerList);
 
 		if (nerList.size() == dbpediaList.size()) {
 			// if it is accomplished by %100
@@ -86,8 +86,8 @@ public class TextAnalyser {
 				for (int beginOffset = -1; (beginOffset = content.indexOf(
 						namedEntity, beginOffset + 1)) != -1;) {
 					int endOffset = namedEntity.length() + beginOffset;
-					System.out.println("basi : " + beginOffset + " sonu : "
-							+ endOffset);
+					// System.out.println("basi : " + beginOffset + " sonu : "
+					// + endOffset);
 
 					entities.add(new Entities("T" + cnt, dbpediaList.get(
 							cnt - 1).getType(), beginOffset, endOffset));
@@ -102,8 +102,7 @@ public class TextAnalyser {
 
 	public String demonstrateHTMLContent(String content) throws IOException {
 		ArrayList<Entities> analyzeTextList = new ArrayList<Entities>();
-		analyzeTextList = new TextAnalyser()
-				.analyzeTextList(content);
+		analyzeTextList = new TextAnalyser().analyzeTextList(content);
 
 		String label = "";
 		String resultContent = content;

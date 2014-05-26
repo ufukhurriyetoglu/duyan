@@ -39,8 +39,9 @@ public class DbpediaSearcher {
 			ResultSet results = qe.execSelect();
 			// there is no named entity extraction
 			if (!results.hasNext()) {
-				System.out.println("empty");
 				qe.close();
+				break;
+			} else {
 				String[] splittedWords = nerMember.split(" ");
 				String word = splittedWords[0];
 				possibleList.add(word);
@@ -55,9 +56,9 @@ public class DbpediaSearcher {
 					}
 				}
 
-				for (String str : possibleList) {
-					System.out.println(str);
-				}
+				// for (String str : possibleList) {
+				// System.out.println(str);
+				// }
 
 				for (int i = 0; i < splittedWords.length; i++) {
 					if (i < splittedWords.length - 1) {

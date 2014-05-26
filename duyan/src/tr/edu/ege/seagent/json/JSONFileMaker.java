@@ -48,36 +48,7 @@ public class JSONFileMaker {
 					" [ [ " + start + "," + end + " ] ]");
 		}
 
-//		try {
-
-			// FileWriter file = new FileWriter(
-			// "/home/etmen/Downloads/CalculatorJSF/WebContent/json/"+
-			// outputFile);
-			// file.write(jsonString);
-			// file.flush();
-			// file.close();
-
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		//
-		// System.out.println(outputFile + " is created.");
 		return jsonString;
 	}
-
-	// public static void main(String[] args) {
-	// ArrayList<Entities> entities = new ArrayList<Entities>();
-	// entities.add(new Entities("T1", "Person", 18, 32));
-	// entities.add(new Entities("T2", "Organization", 34, 57));
-	// entities.add(new Entities("T3", "Person", 60, 70));
-	// entities.add(new Entities("T4", "Location", 215, 222));
-	// new JSONFileMaker().createJsonFile("test1.json",
-	// "MHP Genel Ba��kan�� Devlet Bah��eli, Ba��bakan Tayyip Erdo��an�����n �����imdi MHP���nin genel ba��kan�� ����km����, CHP���nin genel ba��kan��n�� savunuyor��� s��zlerine ���S��n��f arkada����m�� ni��in savunmay��m, sahip ����kmayay��m��� yan��t��n�� verdini. Fethiye���deki olaylar��n da bir provakasyon oldu��unu belirten Bah��eli, ���Hi��bir arkada����m��z��n ili��kisi yoktur��� tepkisini g��sterdi.",
-	// entities);
-	// new JSONFileMaker().createJsonFile("test2.json",
-	// "Ba��bakan Tayyip Erdo��an�����n �����imdi MHP���nin genel ba��kan�� ����km����, CHP���nin genel ba��kan��n�� savunuyor��� s��zlerine ���S��n��f arkada����m�� ni��in savunmay��m, sahip ����kmayay��m��� yan��t��n�� verdini. Fethiye���deki olaylar��n da bir provakasyon oldu��unu belirten Bah��eli, ���Hi��bir arkada����m��z��n ili��kisi yoktur��� tepkisini g��sterdi.",
-	// entities);
-	//
-	// }
 
 }

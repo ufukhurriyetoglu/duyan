@@ -1,8 +1,0 @@
-Mustafa Kemal Atatürk,Person,http://dbpedia.org/resource/Mustafa_Kemal_Atatürk
-İsmet İnönü,Person,http://dbpedia.org/resource/İsmet_İnönü
-Türkiye Büyük Millet Meclisi,Organization,http://dbpedia.org/resource/Grand_National_Assembly_of_Turkey
-İstanbul,Location,http://dbpedia.org/resource/İstanbul
-Ankara,Location,http://dbpedia.org/resource/Ankara
-Kenan Doğulu,Person,http://dbpedia.org/resource/Kenan_Doğulu
-Beren Saat,Person,http://dbpedia.org/resource/Beren_Saat
-İzmir,Location,http://dbpedia.org/resource/İzmir
