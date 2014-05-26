@@ -8,7 +8,7 @@ public class DbpediaSearcherInFile {
 
 	// TODO absolute path
 	// private static final String DBPEDIA_LIST_FILE = "/Users/emrahinan/Desktop/duyan/duyan/WebContent/files/dbpediaList.txt";
-	private static final String DBPEDIA_LIST_FILE = "files/dbpediaList.txt";
+	private static final String DBPEDIA_LIST_FILE = "/WEB-INF/files/dbpediaList.txt";
 
 
 	// private static final String DBPEDIA_LIST_FILE =
