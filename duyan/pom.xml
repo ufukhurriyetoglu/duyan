@@ -52,7 +52,7 @@
 				</executions>
 				<configuration>
 					<force>true</force>
-					<hostname>67.210.247.2</hostname>
+					<hostname>bagliveri.com</hostname>
 					<username>${env.CI_DEPLOY_USERNAME}</username>
 					<password>${env.CI_DEPLOY_PASSWORD}</password>
 					<name>duyan.war</name>
