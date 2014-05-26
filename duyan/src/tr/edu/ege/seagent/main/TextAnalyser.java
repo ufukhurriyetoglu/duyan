@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.json.simple.parser.ParseException;
 
 import tr.edu.ege.seagent.dbpedia.Dbpedia;
+import tr.edu.ege.seagent.dbpedia.DbpediaSearcher;
 import tr.edu.ege.seagent.dbpedia.DbpediaSearcherInFile;
 import tr.edu.ege.seagent.json.Entities;
 import tr.edu.ege.seagent.json.JSONFileMaker;
@@ -23,8 +24,8 @@ public class TextAnalyser {
 		ArrayList<Entities> entities = null;
 		ArrayList<String> nerList = extractNamedEntity(content);
 
-		// ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
-		// .resolveInDbpedia(nerList);
+//		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+//		 .resolveInDbpedia(nerList);
 
 		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
 				.resolveInDbpedia(nerList);
@@ -69,6 +70,9 @@ public class TextAnalyser {
 		String jsonResult = "";
 		ArrayList<String> nerList = extractNamedEntity(content);
 
+//		 ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
+//		 .resolveInDbpedia(nerList);
+		
 		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
 				.resolveInDbpedia(nerList);
 
