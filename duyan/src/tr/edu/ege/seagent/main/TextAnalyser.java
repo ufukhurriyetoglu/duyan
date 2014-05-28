@@ -16,7 +16,7 @@ import zemberek.morphology.apps.TurkishMorphParser;
 import zemberek.morphology.apps.TurkishSentenceParser;
 
 public class TextAnalyser {
-
+	
 	// for "Vites"
 	public ArrayList<Entities> analyzeTextList(String content)
 			throws IOException {
@@ -69,8 +69,7 @@ public class TextAnalyser {
 
 		// Set up a simple configuration that logs on the console.
 		// BasicConfigurator.configure();
-
-		String jsonResult = new TestUtils().EMPTY_JSON;
+		String jsonResult = "{\"text\":\"\",\"entities\":{}}";
 		ArrayList<String> nerList = extractNamedEntity(content);
 
 		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
