@@ -67,7 +67,10 @@ public class TextAnalyser {
 	// for "brat"
 	public String analyzeText(String content) throws IOException {
 
-		String jsonResult = "";
+		// Set up a simple configuration that logs on the console.
+		// BasicConfigurator.configure();
+
+		String jsonResult = new TestUtils().EMPTY_JSON;
 		ArrayList<String> nerList = extractNamedEntity(content);
 
 		ArrayList<Dbpedia> dbpediaList = new DbpediaSearcher()
