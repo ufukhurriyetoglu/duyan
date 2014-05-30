@@ -73,6 +73,7 @@
 					gelerek Ankara'da kaldılar.</option>
 				<option value="Cumle2">Kenan Doğulu ve Beren Saat gizlice İzmir'de evlendi.</option>
 				<option value="Cumle3">Yapılan düğünde Arda Turan hazır bulundu.</option>
+				<option value="Cumle4">MHP Genel Başkanı Devlet Bahçeli geldi.</option>
 			</select><span class="caret"></span> <br>
 
 			<form action="DuyanServlet">

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import tr.edu.ege.seagent.json.Entities;
-import tr.edu.ege.seagent.main.TextAnalyser;
+import tr.edu.ege.seagent.task.CapitalLetterTask;
 
 import com.hp.hpl.jena.util.FileUtils;
 
@@ -12,6 +12,7 @@ public class HtmlContentProvider {
 
 	private static final String EMPTY_TEXT_MESSAGE = "Lütfen önce metin giriniz!";
 	private static final String NULL_TEXT_MESSAGE = "Vites varlık ismi tanımlayamadan boş sonuç gönderdi!";
+	private static final String DBPEDIA_TEXT_MESSAGE = "DBpedia geçici olarak hizmet dışıdır.";
 
 	public String htmlHeadCode = "<html> \n "
 			+ " <head> "
@@ -94,8 +95,12 @@ public class HtmlContentProvider {
 	}
 
 	public String colorifyNamedEntity(String content) throws IOException {
-		ArrayList<Entities> analyzeTextList = new TextAnalyser()
-				.analyzeTextList(content);
+//		ArrayList<Entities> analyzeTextList = new TextAnalyser()
+//				.analyzeTextList(content);
+		
+//		String jsonResult = new CapitalLetterTask().perform(content);
+		ArrayList<Entities> analyzeTextList = new CapitalLetterTask().generateEntities(content);
+		
 		String oldNamedEntity, newNamedEntity = "";
 		String resultContent = content;
 		if (analyzeTextList == null) {
@@ -128,5 +133,11 @@ public class HtmlContentProvider {
 		else
 			color = "#DFB4B4";
 		return color;
+	}
+
+	public String getDbpediNotWorkingContent() {
+		return htmlHeadCode + title + "<hr/>" + "</head> \n" + "<body> \n"
+				+ "<p><font color=\"red\"><b>" + DBPEDIA_TEXT_MESSAGE
+				+ "</b></font></p>" + "</body> \n" + "</html>";
 	}
 }

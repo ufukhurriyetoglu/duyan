@@ -3,6 +3,8 @@ package tr.edu.ege.seagent.servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +17,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import tr.edu.ege.seagent.main.TextAnalyser;
+import tr.edu.ege.seagent.task.CapitalLetterTask;
 
 import com.hp.hpl.jena.util.FileUtils;
 
@@ -25,10 +28,11 @@ import com.hp.hpl.jena.util.FileUtils;
 public class DuyanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	HtmlContentProvider hcp = new HtmlContentProvider();
+	public final String DBPEDIA_CNTRL_URL = "http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=select+%3Fs+%3Fp+%3Fo+where+%7B%3Fs+%3Fp+%3Fo%7D+LIMIT+1&format=text%2Fhtml&timeout=30000&debug=on";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
-	 */
+	 */ 
 	public DuyanServlet() {
 		super();
 	}
@@ -44,24 +48,38 @@ public class DuyanServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		response.setCharacterEncoding(FileUtils.encodingUTF8);
 		PrintWriter out = response.getWriter();
-		if (content.equals("")) {
-			out.println(hcp.getEmptyContent());
+
+		URL url2 = new URL(DBPEDIA_CNTRL_URL);
+		HttpURLConnection urlh = (HttpURLConnection) url2.openConnection();
+		int status = urlh.getResponseCode();
+		// if DBpedia does not work (200 means everything is OK.)
+		if (status == 502) {
+			out.println(hcp.getDbpediNotWorkingContent());
 		} else {
-			String resultContent = hcp.colorifyNamedEntity(content);
 
-			if (resultContent.equals("")) {
-				out.println(hcp.getNullContent());
+			if (content.equals("")) {
+				out.println(hcp.getEmptyContent());
 			} else {
+				String resultContent = hcp.colorifyNamedEntity(content);
 
-				String selected = request.getParameter("outputtype");
-				if (selected.equals("Json")) {
-					String jsonResult = new TextAnalyser().analyzeText(content);
-					out.println(hcp.getJsonContent(jsonResult));
-				} else if (selected.equals("Vites")) {
-					out.println(hcp.getVitesContent(resultContent));
-				} else { // brat GUI solution
-					String jsonResult = new TextAnalyser().analyzeText(content);
-					out.println(hcp.getBratContent(jsonResult));
+				if (resultContent.equals("")) {
+					out.println(hcp.getNullContent());
+				} else {
+
+					String selected = request.getParameter("outputtype");
+					if (selected.equals("Json")) {
+//						String jsonResult = new TextAnalyser()
+//								.analyzeText(content);
+						String jsonResult = new CapitalLetterTask().perform(content);
+						out.println(hcp.getJsonContent(jsonResult));
+					} else if (selected.equals("Vites")) {
+						out.println(hcp.getVitesContent(resultContent));
+					} else { // brat GUI solution
+					// String jsonResult = new TextAnalyser()
+					// .analyzeText(content);
+						String jsonResult = new CapitalLetterTask().perform(content);
+						out.println(hcp.getBratContent(jsonResult));
+					}
 				}
 			}
 		}

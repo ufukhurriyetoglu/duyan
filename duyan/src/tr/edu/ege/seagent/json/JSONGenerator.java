@@ -8,7 +8,9 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public class JSONFileMaker {
+import tr.edu.ege.seagent.dbpedia.Dbpedia;
+
+public class JSONGenerator {
 
 	@SuppressWarnings("unchecked")
 	public String createJson(String sentence, ArrayList<Entities> entities) {
@@ -49,6 +51,32 @@ public class JSONFileMaker {
 		}
 
 		return jsonString;
+	}
+
+	public ArrayList<Entities> acquireEntities(String content,
+			ArrayList<Dbpedia> disambiguatedDbpediaList) {
+		ArrayList<Entities> entities = new ArrayList<Entities>();
+
+		int cnt = 1;
+		for (Dbpedia dbpedia : disambiguatedDbpediaList) {
+			String namedEntity = dbpedia.getName();
+
+			// find all occurrences forward
+			for (int beginOffset = -1; (beginOffset = content.indexOf(
+					namedEntity, beginOffset + 1)) != -1;) {
+				int endOffset = namedEntity.length() + beginOffset;
+				// System.out.println("basi : " + beginOffset + " sonu : "
+				// + endOffset);
+
+				// TODO uri
+				entities.add(new Entities(disambiguatedDbpediaList.get(cnt - 1)
+						.getUri(), "T" + cnt, disambiguatedDbpediaList.get(
+						cnt - 1).getType(), beginOffset, endOffset));
+				cnt++;
+			}
+		}
+
+		return entities;
 	}
 
 }
