@@ -1,0 +1,14 @@
+Mustafa Kemal Atatürk,Person,http://dbpedia.org/resource/Mustafa_Kemal_Atatürk
+İsmet İnönü,Person,http://dbpedia.org/resource/İsmet_İnönü
+Türkiye Büyük Millet Meclisi,Organization,http://dbpedia.org/resource/Grand_National_Assembly_of_Turkey
+İstanbul,Location,http://dbpedia.org/resource/İstanbul
+Ankara,Location,http://dbpedia.org/resource/Ankara
+Kenan Doğulu,Person,http://dbpedia.org/resource/Kenan_Doğulu
+Beren Saat,Person,http://dbpedia.org/resource/Beren_Saat
+İzmir,Location,http://dbpedia.org/resource/İzmir
+TBMM,Organization,http://dbpedia.org/resource/Grand_National_Assembly_of_Turkey
+CHP,Organization,http://dbpedia.org/resource/Republican_People%27s_Party_(Turkey)
+AK Parti,Organization,http://dbpedia.org/page/Justice_and_Development_Party_(Turkey)
+MHP,Organization,http://dbpedia.org/resource/Nationalist_Movement_Party
+Kemal Kılıçdaroğlu,Person,http://dbpedia.org/resource/Kemal_K%C4%B1l%C4%B1%C3%A7daro%C4%9Flu
+Abdullah Gül,Person,http://dbpedia.org/resource/Abdullah_G%C3%BCl

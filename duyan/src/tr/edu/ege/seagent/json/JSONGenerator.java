@@ -2,18 +2,20 @@ package tr.edu.ege.seagent.json;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import tr.edu.ege.seagent.dbpedia.Dbpedia;
+import tr.edu.ege.seagent.dbpedia.SemanticTag;
+import tr.edu.ege.seagent.entity.Entity;
 
 public class JSONGenerator {
 
 	@SuppressWarnings("unchecked")
-	public String createJson(String sentence, ArrayList<Entities> entities) {
+	public String createJson(String sentence, ArrayList<JsonEntity> entities) {
 
 		JSONObject obj = new JSONObject();
 		obj.put("text", sentence);
@@ -24,7 +26,7 @@ public class JSONGenerator {
 
 		// creates child nodes
 		int i = 1;
-		for (Entities entity : entities) {
+		for (JsonEntity entity : entities) {
 			JSONArray list = new JSONArray();
 			ArrayList<Integer> tmpNumbers = new ArrayList<Integer>();
 			list.add(entity.getT());
@@ -53,12 +55,59 @@ public class JSONGenerator {
 		return jsonString;
 	}
 
-	public ArrayList<Entities> acquireEntities(String content,
-			ArrayList<Dbpedia> disambiguatedDbpediaList) {
-		ArrayList<Entities> entities = new ArrayList<Entities>();
+	public ArrayList<JsonEntity> acquireEntitiesSet(Entity contentEntity,
+			Entity disambiguatedDbpediaList) {
+		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
 
 		int cnt = 1;
-		for (Dbpedia dbpedia : disambiguatedDbpediaList) {
+
+		Iterator<SemanticTag> iterator = disambiguatedDbpediaList.getDbpediaList().iterator();
+		while (iterator.hasNext()) {
+			SemanticTag dbpedia = iterator.next();
+			String namedEntity = dbpedia.getName();
+			// find all occurrences forward
+			String content = contentEntity.getContent();
+			for (int beginOffset = -1; (beginOffset = content.indexOf(
+					namedEntity, beginOffset + 1)) != -1;) {
+				int endOffset = namedEntity.length() + beginOffset;
+				// System.out.println("basi : " + beginOffset + " sonu : "
+				// + endOffset);
+
+				// TODO uri
+				entities.add(new JsonEntity(namedEntity, dbpedia.getUri(), "T"
+						+ cnt, dbpedia.getType(), beginOffset, endOffset));
+				cnt++;
+			}
+		}
+
+//		for (Dbpedia dbpedia : disambiguatedDbpediaList) {
+//			String namedEntity = dbpedia.getName();
+//
+//			// find all occurrences forward
+//			for (int beginOffset = -1; (beginOffset = content.indexOf(
+//					namedEntity, beginOffset + 1)) != -1;) {
+//				int endOffset = namedEntity.length() + beginOffset;
+//				// System.out.println("basi : " + beginOffset + " sonu : "
+//				// + endOffset);
+//
+//				// TODO uri
+//				entities.add(new Entities(namedEntity, disambiguatedDbpediaList
+//						.get(cnt - 1).getUri(), "T" + cnt,
+//						disambiguatedDbpediaList.get(cnt - 1).getType(),
+//						beginOffset, endOffset));
+//				cnt++;
+//			}
+//		}
+
+		return entities;
+	}
+
+	public ArrayList<JsonEntity> acquireEntities(String content,
+			ArrayList<SemanticTag> disambiguatedDbpediaList) {
+		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
+
+		int cnt = 1;
+		for (SemanticTag dbpedia : disambiguatedDbpediaList) {
 			String namedEntity = dbpedia.getName();
 
 			// find all occurrences forward
@@ -69,9 +118,10 @@ public class JSONGenerator {
 				// + endOffset);
 
 				// TODO uri
-				entities.add(new Entities(disambiguatedDbpediaList.get(cnt - 1)
-						.getUri(), "T" + cnt, disambiguatedDbpediaList.get(
-						cnt - 1).getType(), beginOffset, endOffset));
+				entities.add(new JsonEntity(namedEntity, disambiguatedDbpediaList
+						.get(cnt - 1).getUri(), "T" + cnt,
+						disambiguatedDbpediaList.get(cnt - 1).getType(),
+						beginOffset, endOffset));
 				cnt++;
 			}
 		}

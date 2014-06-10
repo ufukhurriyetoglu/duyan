@@ -50,7 +50,7 @@ public class DbpediaTest {
 
 	@Test
 	public void disambiguateDbpediTest() throws Exception {
-		ArrayList<Dbpedia> resolveNGramsInDbpedia = createResolvedNGramsStartBigLetter();
+		ArrayList<SemanticTag> resolveNGramsInDbpedia = createResolvedNGramsStartBigLetter();
 
 		DBpediaDisambiguator dbpediaDis = new DBpediaDisambiguator();
 		dbpediaDis.disambiguateDbpedia(resolveNGramsInDbpedia);
@@ -79,7 +79,7 @@ public class DbpediaTest {
 
 	}
 
-	private ArrayList<Dbpedia> createResolvedNGramsStartBigLetter() {
+	private ArrayList<SemanticTag> createResolvedNGramsStartBigLetter() {
 		ArrayList<String> properNounList = new ArrayList<String>();
 		properNounList.add("MHP");
 		properNounList.add("Genel");
@@ -92,7 +92,7 @@ public class DbpediaTest {
 				properNounList, properNounList.size());
 
 		// resolve generated NGrams in DBpedia
-		ArrayList<Dbpedia> resolveNGramsInDbpedia = new DbpediaSearcher()
+		ArrayList<SemanticTag> resolveNGramsInDbpedia = new DbpediaSearcher()
 				.resolveNGramsInDbpedia(ngramList);
 		return resolveNGramsInDbpedia;
 	}

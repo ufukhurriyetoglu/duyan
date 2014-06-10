@@ -26,23 +26,24 @@ public class DbpediaSearcher {
 
 	public final String DBPEDIA_CNTRL_URL = "http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=select+%3Fs+%3Fp+%3Fo+where+%7B%3Fs+%3Fp+%3Fo%7D+LIMIT+1&format=text%2Fhtml&timeout=30000&debug=on";
 
-	public boolean checkUri(String uri, ArrayList<Dbpedia> dbpediaCandidateUriList){
+	public boolean checkUri(String uri,
+			ArrayList<SemanticTag> dbpediaCandidateUriList) {
 		boolean check = false;
-		for (Dbpedia dbpedia : dbpediaCandidateUriList) {
-			if(dbpedia.getUri().contains(uri))
+		for (SemanticTag dbpedia : dbpediaCandidateUriList) {
+			if (dbpedia.getUri().contains(uri))
 				check = true;
 			break;
 		}
 		return check;
 	}
-	
+
 	// clarified resolve event
-	public ArrayList<Dbpedia> resolveNGramsInDbpedia(List<String> ngramList) {
-		ArrayList<Dbpedia> dbpediaCandidateUriList = new ArrayList<Dbpedia>();
+	public ArrayList<SemanticTag> resolveNGramsInDbpedia(List<String> ngramList) {
+		ArrayList<SemanticTag> dbpediaCandidateUriList = new ArrayList<SemanticTag>();
 		for (String nGram : ngramList) {
 			String resolvedNounUri = resolveNounInDbpedia(nGram);
 			if (resolvedNounUri.isEmpty()) {
-				System.out.println("unresolved uri");
+				// System.out.println("unresolved uri");
 			} else {
 				if (!checkUri(resolvedNounUri, dbpediaCandidateUriList)) {
 
@@ -56,15 +57,15 @@ public class DbpediaSearcher {
 					String type = "";
 					if (askToDbpedia(askPer)) {
 						type = "Person";
-						dbpediaCandidateUriList.add(new Dbpedia(nGram, type,
+						dbpediaCandidateUriList.add(new SemanticTag(nGram, type,
 								resolvedNounUri));
 					} else if (askToDbpedia(askLoc)) {
 						type = "Location";
-						dbpediaCandidateUriList.add(new Dbpedia(nGram, type,
+						dbpediaCandidateUriList.add(new SemanticTag(nGram, type,
 								resolvedNounUri));
 					} else if (askToDbpedia(askOrg)) {
 						type = "Organization";
-						dbpediaCandidateUriList.add(new Dbpedia(nGram, type,
+						dbpediaCandidateUriList.add(new SemanticTag(nGram, type,
 								resolvedNounUri));
 					} else {
 						type = "";
@@ -101,9 +102,9 @@ public class DbpediaSearcher {
 	}
 
 	// ESKIII
-	public ArrayList<Dbpedia> resolveInDbpedia(ArrayList<String> nerList)
+	public ArrayList<SemanticTag> resolveInDbpedia(ArrayList<String> nerList)
 			throws IOException {
-		ArrayList<Dbpedia> dbpediaList = new ArrayList<Dbpedia>();
+		ArrayList<SemanticTag> dbpediaList = new ArrayList<SemanticTag>();
 		ArrayList<String> possibleList = new ArrayList<String>();
 		ArrayList<String> possibleFoundList = new ArrayList<String>();
 
@@ -203,15 +204,15 @@ public class DbpediaSearcher {
 					String type = "";
 					if (askToDbpedia(askPer)) {
 						type = "Person";
-						dbpediaList.add(new Dbpedia(nerMember, type, uri));
+						dbpediaList.add(new SemanticTag(nerMember, type, uri));
 						break;
 					} else if (askToDbpedia(askLoc)) {
 						type = "Location";
-						dbpediaList.add(new Dbpedia(nerMember, type, uri));
+						dbpediaList.add(new SemanticTag(nerMember, type, uri));
 						break;
 					} else if (askToDbpedia(askOrg)) {
 						type = "Organization";
-						dbpediaList.add(new Dbpedia(nerMember, type, uri));
+						dbpediaList.add(new SemanticTag(nerMember, type, uri));
 						break;
 					} else {
 						type = "";

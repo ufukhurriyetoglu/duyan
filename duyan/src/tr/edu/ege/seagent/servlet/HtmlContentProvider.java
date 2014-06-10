@@ -3,7 +3,14 @@ package tr.edu.ege.seagent.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import tr.edu.ege.seagent.json.Entities;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.xml.sax.SAXException;
+
+import tr.edu.ege.seagent.entity.Entity;
+import tr.edu.ege.seagent.json.JsonEntity;
+import tr.edu.ege.seagent.strategy.CapitalLetterCompositeStrategy;
 import tr.edu.ege.seagent.task.CapitalLetterTask;
 
 import com.hp.hpl.jena.util.FileUtils;
@@ -23,13 +30,14 @@ public class HtmlContentProvider {
 	public String title = "<h1>Vites : Türkçe Varlık İsmi Tanımlama Sistemi</h1>";
 
 	public String getVitesContent(String resultContent) {
-		return htmlHeadCode + " <style type=\"text/css\"> " + " .tooltip{ "
-				+ "	display: inline; " + "	position: relative; }"
-				+ "	.tooltip:hover:after{ " + "	background: #333; "
-				+ "background: rgba(0,0,0,.8);" + "border-radius: 5px;"
-				+ "bottom: 26px;" + "color: #fff;" + "content: attr(title);"
-				+ "left: 25%;" + "text-align:center;" + "padding: 5px 5px;"
-				+ "position: absolute;" + "z-index: 98;" + "width: 80px; }"
+		String HTML = htmlHeadCode + " <style type=\"text/css\"> "
+				+ " .tooltip{ " + "	display: inline; "
+				+ "	position: relative; }" + "	.tooltip:hover:after{ "
+				+ "	background: #333; " + "background: rgba(0,0,0,.8);"
+				+ "border-radius: 5px;" + "bottom: 26px;" + "color: #fff;"
+				+ "content: attr(title);" + "left: 25%;" + "text-align:center;"
+				+ "padding: 5px 5px;" + "position: absolute;" + "z-index: 98;"
+				+ "width: 80px; }"
 
 				+ ".tooltip:hover:before{" + "	border: solid;"
 				+ " border-color: #333 transparent; "
@@ -38,6 +46,7 @@ public class HtmlContentProvider {
 				+ "	z-index: 99; } </style> " + "</head> \n" + "<body> "
 				+ title + "<hr/>" + "<div><br/><br/><br/><p> " + " <br/><br/>"
 				+ resultContent + "</p></div>" + " </body> \n" + "</html>";
+		return HTML;
 	}
 
 	public String getBratContent(String jsonResult) {
@@ -94,19 +103,56 @@ public class HtmlContentProvider {
 				+ "</b></font></p>" + "</body> \n" + "</html>";
 	}
 
-	public String colorifyNamedEntity(String content) throws IOException {
-//		ArrayList<Entities> analyzeTextList = new TextAnalyser()
-//				.analyzeTextList(content);
-		
-//		String jsonResult = new CapitalLetterTask().perform(content);
-		ArrayList<Entities> analyzeTextList = new CapitalLetterTask().generateEntities(content);
-		
+	public String colorifyNamedEntityStrategy(String content)
+			throws IOException, SAXException, TransformerException,
+			ParserConfigurationException {
+		Entity entityJson = new CapitalLetterCompositeStrategy()
+				.doOperation(new Entity(content));
+
+		ArrayList<JsonEntity> analyzeTextList = entityJson.getEntityJsonList();
+
 		String oldNamedEntity, newNamedEntity = "";
 		String resultContent = content;
-		if (analyzeTextList == null) {
+		if (analyzeTextList.isEmpty()) {
 			resultContent = "";
 		} else {
-			for (Entities entities : analyzeTextList) {
+			for (JsonEntity entities : analyzeTextList) {
+				oldNamedEntity = content.substring(entities.getStart(),
+						entities.getEnd());
+				String coloringStart = " <mark style=\"background-color:"
+						+ identifyBackgroundColor(entities.getType()) + "\"> "
+						+ " <a href=" + entities.getDbpediaUri() + " title="
+						+ entities.getType() + " class=\"tooltip\">"
+						+ "	<span title=" + entities.getDbpediaUri() + ">";
+				String coloringEnd = "</span></a></mark>";
+				newNamedEntity = coloringStart + oldNamedEntity + coloringEnd;
+				resultContent = resultContent.replace(oldNamedEntity,
+						newNamedEntity);
+			}
+		}
+		return resultContent;
+	}
+
+	public String colorifyNamedEntity(String content) throws IOException,
+			SAXException, TransformerException, ParserConfigurationException {
+		// ArrayList<Entities> analyzeTextList = new TextAnalyser()
+		// .analyzeTextList(content);
+
+		// String jsonResult = new CapitalLetterTask().perform(content);
+		// ArrayList<Entities> analyzeTextList = new
+		// CapitalLetterTask().generateEntities(content);
+
+		Entity entityJson = new CapitalLetterCompositeStrategy()
+				.doOperation(new Entity(content));
+
+		ArrayList<JsonEntity> analyzeTextList = entityJson.getEntityJsonList();
+
+		String oldNamedEntity, newNamedEntity = "";
+		String resultContent = content;
+		if (analyzeTextList.isEmpty()) {
+			resultContent = "";
+		} else {
+			for (JsonEntity entities : analyzeTextList) {
 				oldNamedEntity = content.substring(entities.getStart(),
 						entities.getEnd());
 				String coloringStart = " <mark style=\"background-color:"

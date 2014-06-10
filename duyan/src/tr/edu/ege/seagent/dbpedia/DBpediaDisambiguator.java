@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DBpediaDisambiguator {
-	public ArrayList<Dbpedia> disambiguateDbpedia(
-			ArrayList<Dbpedia> resolveNGramsInDbpedia) {
-		ArrayList<Dbpedia> disambiguatedDbpediaList = new ArrayList<Dbpedia>();
+	public ArrayList<SemanticTag> disambiguateDbpedia(
+			ArrayList<SemanticTag> resolveNGramsInDbpedia) {
+		ArrayList<SemanticTag> disambiguatedDbpediaList = new ArrayList<SemanticTag>();
 
 		String clearedUrl = "http://dbpedia.org/resource/";
 
@@ -21,7 +21,7 @@ public class DBpediaDisambiguator {
 					// + " removed.");
 					if (!disambiguatedDbpediaList
 							.contains(resolveNGramsInDbpedia.get(i).getUri()))
-						disambiguatedDbpediaList.add(new Dbpedia(
+						disambiguatedDbpediaList.add(new SemanticTag(
 								resolveNGramsInDbpedia.get(j).getUri(),
 								resolveNGramsInDbpedia.get(j).getType()));
 				}
@@ -29,10 +29,10 @@ public class DBpediaDisambiguator {
 		}
 
 		// TODO Arraylist<Dbpedia> olunca removeAll çalışmadı
-		for (Iterator<Dbpedia> it = resolveNGramsInDbpedia.iterator(); it
+		for (Iterator<SemanticTag> it = resolveNGramsInDbpedia.iterator(); it
 				.hasNext();) {
-			Dbpedia dbpedia = it.next();
-			for (Dbpedia dbp : disambiguatedDbpediaList) {
+			SemanticTag dbpedia = it.next();
+			for (SemanticTag dbp : disambiguatedDbpediaList) {
 				if (dbpedia.getUri().equals(dbp.getUri())) {
 					it.remove();
 				}

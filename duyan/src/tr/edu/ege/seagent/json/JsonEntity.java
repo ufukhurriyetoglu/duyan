@@ -1,21 +1,23 @@
 package tr.edu.ege.seagent.json;
 
-public class Entities {
+public class JsonEntity {
 	private String id;
 	private String dbpediaUri;
 	private String type;
 	private String position;
 	private int start;
 	private int end;
+	private String name;
 
-	public Entities(String id, String type, int start, int end) {
+	public JsonEntity(String id, String type, int start, int end) {
 		this.id = id;
 		this.type = type;
 		this.start = start;
 		this.end = end;
 	}
 	
-	public Entities(String dbpediaUri, String id,  String type, int start, int end) {
+	public JsonEntity(String name,String dbpediaUri, String id,  String type, int start, int end) {
+		this.name = name;
 		this.dbpediaUri = dbpediaUri;
 		this.id = id;
 		this.type = type;
@@ -69,6 +71,14 @@ public class Entities {
 
 	public void setDbpediaUri(String dbpediaUri) {
 		this.dbpediaUri = dbpediaUri;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

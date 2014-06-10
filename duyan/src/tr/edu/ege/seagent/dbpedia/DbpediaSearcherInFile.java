@@ -1,34 +1,28 @@
 package tr.edu.ege.seagent.dbpedia;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tr.edu.ege.seagent.fileio.FileOperator;
 
 public class DbpediaSearcherInFile {
 
 	// TODO absolute path
-	// private static final String DBPEDIA_LIST_FILE = "/Users/emrahinan/Desktop/duyan/duyan/WebContent/files/dbpediaList.txt";
-	private static final String DBPEDIA_LIST_FILE = "/WEB-INF/files/dbpediaList.txt";
+	private static final String DBPEDIA_LIST_FILE = "files/dbpediaList.txt";
 
-
-	// private static final String DBPEDIA_LIST_FILE =
-	// "/home/etmen/git/duyan/duyan/WebContent/files/dbpediaList.txt";
-
-	public ArrayList<Dbpedia> resolveInDbpedia(ArrayList<String> nerList) {
+	public ArrayList<SemanticTag> resolveInDbpedia(List<String> ngramList) {
 		FileOperator fo = new FileOperator();
-		ArrayList<Dbpedia> dbpediaFileList = fo.ReadFile(DBPEDIA_LIST_FILE);
-		showOutput(DBPEDIA_LIST_FILE, fo);
+		ArrayList<SemanticTag> dbpediaFileList = fo.ReadFile(DBPEDIA_LIST_FILE);
+		// showOutput(DBPEDIA_LIST_FILE, fo);
 
 		// foreach
-		ArrayList<Dbpedia> dbpediaList = new ArrayList<Dbpedia>();
+		ArrayList<SemanticTag> dbpediaList = new ArrayList<SemanticTag>();
 		for (int i = 0; i < dbpediaFileList.size(); i++) {
-			for (int j = 0; j < nerList.size(); j++) {
-				if (dbpediaFileList.get(i).getName().contains(nerList.get(j))) {
-					System.out.println(dbpediaFileList.get(i).getName()
-							+ " hee " + nerList.get(j));
-					dbpediaList.add(new Dbpedia(
-							dbpediaFileList.get(i).getUri(), dbpediaFileList
-									.get(i).getType()));
+			for (int j = 0; j < ngramList.size(); j++) {
+				if (dbpediaFileList.get(i).getName().equals(ngramList.get(j))) {
+					dbpediaList.add(new SemanticTag(dbpediaFileList.get(i)
+							.getName(), dbpediaFileList.get(i).getType(),
+							dbpediaFileList.get(i).getUri()));
 				}
 			}
 		}
@@ -41,8 +35,8 @@ public class DbpediaSearcherInFile {
 	}
 
 	private void showOutput(String filePath, FileOperator fo) {
-		ArrayList<Dbpedia> readFile = fo.ReadFile(filePath);
-		for (Dbpedia dbpediaMember : readFile) {
+		ArrayList<SemanticTag> readFile = fo.ReadFile(filePath);
+		for (SemanticTag dbpediaMember : readFile) {
 			System.out.println(dbpediaMember.getName() + " "
 					+ dbpediaMember.getType() + " " + dbpediaMember.getUri());
 		}
@@ -55,9 +49,9 @@ public class DbpediaSearcherInFile {
 
 		ArrayList<String> nerList = new ArrayList<String>();
 		nerList.add("Ankara");
-		ArrayList<Dbpedia> resolveInDbpedia = dbpediaFile
+		ArrayList<SemanticTag> resolveInDbpedia = dbpediaFile
 				.resolveInDbpedia(nerList);
-		for (Dbpedia dbpedia : resolveInDbpedia) {
+		for (SemanticTag dbpedia : resolveInDbpedia) {
 			System.out.println(dbpedia.getUri() + " -- " + dbpedia.getType());
 		}
 
