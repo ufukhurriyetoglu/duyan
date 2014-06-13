@@ -1,0 +1,562 @@
+@prefix : <http://www.w3.org/2002/07/owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2> .
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2> rdf:type :Ontology ;
+                                                                         
+                                                                         :imports <http://webprotege.stanford.edu/project/D3CBGORKfCbnwJOanEIN6q> .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasAbbr
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasAbbr> rdf:type :FunctionalProperty ,
+                                                                                          :InverseFunctionalProperty ,
+                                                                                          :ObjectProperty ;
+                                                                                 
+                                                                                 rdfs:domain <http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX> ;
+                                                                                 
+                                                                                 rdfs:range <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abbreviation> ;
+                                                                                 
+                                                                                 rdfs:subPropertyOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasSentiment
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasSentiment> rdf:type :ObjectProperty ;
+                                                                                      
+                                                                                      rdfs:domain <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> ;
+                                                                                      
+                                                                                      rdfs:range <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Sentiment> ;
+                                                                                      
+                                                                                      rdfs:subPropertyOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#isAnnotatedBy
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#isAnnotatedBy> rdf:type :ObjectProperty ;
+                                                                                       
+                                                                                       rdfs:domain <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Sentiment> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#leaderOf
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#leaderOf> rdf:type :ObjectProperty ;
+                                                                                  
+                                                                                  rdfs:range <http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX> ;
+                                                                                  
+                                                                                  rdfs:domain <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PartyLeader> ;
+                                                                                  
+                                                                                  rdfs:subPropertyOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#livesIn
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#livesIn> rdf:type :ObjectProperty ;
+                                                                                 
+                                                                                 rdfs:range <http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY> ;
+                                                                                 
+                                                                                 rdfs:domain <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> ;
+                                                                                 
+                                                                                 rdfs:subPropertyOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#memberOf
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#memberOf> rdf:type :ObjectProperty ;
+                                                                                  
+                                                                                  rdfs:domain <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> ;
+                                                                                  
+                                                                                  rdfs:range <http://webprotege.stanford.edu/RDTFgOSeobKIeju5cNgIiCH> ;
+                                                                                  
+                                                                                  rdfs:subPropertyOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty> rdf:type :ObjectProperty .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#situatedIn
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#situatedIn> rdf:type :ObjectProperty ;
+                                                                                    
+                                                                                    rdfs:subPropertyOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#relationalProperty> .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> rdf:type :DatatypeProperty ;
+                                                                                  
+                                                                                  rdfs:domain <http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY> ,
+                                                                                              <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> ,
+                                                                                              <http://webprotege.stanford.edu/RDTFgOSeobKIeju5cNgIiCH> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#name
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#name> rdf:type :DatatypeProperty .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#nativeName
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#nativeName> rdf:type :DatatypeProperty ;
+                                                                                    
+                                                                                    rdfs:subPropertyOf :topDataProperty .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#polarity
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#polarity> rdf:type :DatatypeProperty .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abbreviation
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abbreviation> rdf:type :Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf :Thing .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#City
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#City> rdf:type :Class ;
+                                                                              
+                                                                              rdfs:subClassOf <http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Continent
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Continent> rdf:type :Class ;
+                                                                                   
+                                                                                   rdfs:subClassOf <http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Country
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Country> rdf:type :Class ;
+                                                                                 
+                                                                                 rdfs:subClassOf <http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#GovernmentParty
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#GovernmentParty> rdf:type :Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#LocationAbbr
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#LocationAbbr> rdf:type :Class ;
+                                                                                      
+                                                                                      rdfs:subClassOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abbreviation> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Minister
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Minister> rdf:type :Class ;
+                                                                                  
+                                                                                  rdfs:subClassOf <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Negative
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Negative> rdf:type :Class ;
+                                                                                  
+                                                                                  rdfs:subClassOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Sentiment> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Neutral
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Neutral> rdf:type :Class ;
+                                                                                 
+                                                                                 rdfs:subClassOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Sentiment> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#OppositionParty
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#OppositionParty> rdf:type :Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#OrganizationAbbr
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#OrganizationAbbr> rdf:type :Class ;
+                                                                                          
+                                                                                          rdfs:subClassOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abbreviation> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Parliamentarian
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Parliamentarian> rdf:type :Class ;
+                                                                                         
+                                                                                         rdfs:subClassOf <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PartyLeader
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PartyLeader> rdf:type :Class ;
+                                                                                     
+                                                                                     rdfs:subClassOf <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PersonAbbr
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PersonAbbr> rdf:type :Class ;
+                                                                                    
+                                                                                    rdfs:subClassOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abbreviation> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Positive
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Positive> rdf:type :Class ;
+                                                                                  
+                                                                                  rdfs:subClassOf <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Sentiment> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#President
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#President> rdf:type :Class ;
+                                                                                   
+                                                                                   rdfs:subClassOf <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PrimeMinister
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PrimeMinister> rdf:type :Class ;
+                                                                                       
+                                                                                       rdfs:subClassOf <http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Sentiment
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Sentiment> rdf:type :Class .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#AKP
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#AKP> rdf:type :NamedIndividual ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Adalet ve Kalkınma Partisi"@tr ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasAbbr> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#AKP> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abdullah_Gül
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Abdullah_Gül> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#President> ,
+                                                                                               :NamedIndividual ;
+                                                                                      
+                                                                                      <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Abdullah Gül"^^xsd:string ;
+                                                                                      
+                                                                                      <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#memberOf> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ak_Parti> ;
+                                                                                      
+                                                                                      <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#livesIn> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ankara> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ak_Parti
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ak_Parti> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#GovernmentParty> ,
+                                                                                           :NamedIndividual ;
+                                                                                  
+                                                                                  <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Adalet ve Kalkınma Partisi" .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ankara
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ankara> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#City> ,
+                                                                                         :NamedIndividual ;
+                                                                                
+                                                                                <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Ankara"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Asya
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Asya> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Continent> ,
+                                                                                       :NamedIndividual ;
+                                                                              
+                                                                              <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Asya"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#CHP
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#CHP> rdf:type :NamedIndividual ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Cumhuriyet Halk Partisi"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Cumhuriyet_Halk_Partisi
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Cumhuriyet_Halk_Partisi> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#OppositionParty> ,
+                                                                                                          :NamedIndividual ;
+                                                                                                 
+                                                                                                 <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Cumhuriyet Halk Partisi"@tr ;
+                                                                                                 
+                                                                                                 <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasAbbr> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#CHP> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Devlet_Bahçeli
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Devlet_Bahçeli> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Parliamentarian> ,
+                                                                                                 :NamedIndividual ;
+                                                                                        
+                                                                                        <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Devlet Bahçeli"@tr ;
+                                                                                        
+                                                                                        <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#leaderOf> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Milliyetçi_Halk_Partisi> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Dr.
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Dr.> rdf:type :NamedIndividual ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Doktor"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Kemal_Kılıçdaroğlu
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Kemal_Kılıçdaroğlu> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PartyLeader> ,
+                                                                                                     :NamedIndividual ;
+                                                                                            
+                                                                                            <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Kemal Kılıçdaroğlu"@tr ;
+                                                                                            
+                                                                                            <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#leaderOf> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Cumhuriyet_Halk_Partisi> ;
+                                                                                            
+                                                                                            <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasAbbr> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Dr.> ;
+                                                                                            
+                                                                                            <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasSentiment> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#başarılı> ;
+                                                                                            
+                                                                                            <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#livesIn> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İzmir> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#MHP
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#MHP> rdf:type :NamedIndividual ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Milliyetçi Halk Partisi"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Mehmet_Şimşek
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Mehmet_Şimşek> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Minister> ,
+                                                                                                :NamedIndividual ;
+                                                                                       
+                                                                                       <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Mehmet Şimşek"@tr ;
+                                                                                       
+                                                                                       <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#memberOf> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ak_Parti> ;
+                                                                                       
+                                                                                       <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#livesIn> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Ankara> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Milliyetçi_Halk_Partisi
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Milliyetçi_Halk_Partisi> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#OppositionParty> ,
+                                                                                                          :NamedIndividual ;
+                                                                                                 
+                                                                                                 <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Milliyetçi Halk Partisi"@tr ;
+                                                                                                 
+                                                                                                 <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasAbbr> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#MHP> ;
+                                                                                                 
+                                                                                                 <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#situatedIn> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İstanbul> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Prof.
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Prof.> rdf:type :NamedIndividual ;
+                                                                               
+                                                                               <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Profesör"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Tayyip_Erdoğan
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Tayyip_Erdoğan> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#PrimeMinister> ,
+                                                                                                 :NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Türkiye
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Türkiye> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Country> ,
+                                                                                          :NamedIndividual ;
+                                                                                 
+                                                                                 <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "Türkiye"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#başarılı
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#başarılı> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Positive> ,
+                                                                                           :NamedIndividual ;
+                                                                                  
+                                                                                  <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#polarity> "0.296"^^xsd:float ;
+                                                                                  
+                                                                                  <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#name> "success"@en ;
+                                                                                  
+                                                                                  <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#nativeName> "başarılı"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#güzel
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#güzel> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Positive> ,
+                                                                                        :NamedIndividual ;
+                                                                               
+                                                                               <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#polarity> "0.865"^^xsd:float ;
+                                                                               
+                                                                               <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#name> "beatiful"@en ;
+                                                                               
+                                                                               <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#nativeName> "güzel"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hoş
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hoş> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Positive> ,
+                                                                                      :NamedIndividual ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#polarity> "0.654"^^xsd:float ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#name> "nice"@en ;
+                                                                             
+                                                                             <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#nativeName> "hoş"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#normal
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#normal> rdf:type :NamedIndividual ;
+                                                                                
+                                                                                <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#polarity> "0.0"^^xsd:float ;
+                                                                                
+                                                                                <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#name> "normal"@en ;
+                                                                                
+                                                                                <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#nativeName> "normal"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#çirkin
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#çirkin> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#Negative> ,
+                                                                                         :NamedIndividual ;
+                                                                                
+                                                                                <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#polarity> "-0.875"^^xsd:float ;
+                                                                                
+                                                                                <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#name> "ugly"@en ;
+                                                                                
+                                                                                <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#nativeName> "çirkin"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İst.
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İst.> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#LocationAbbr> ,
+                                                                                       :NamedIndividual ;
+                                                                              
+                                                                              <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "İstanbul"@tr .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İstanbul
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İstanbul> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#City> ,
+                                                                                           :NamedIndividual ;
+                                                                                  
+                                                                                  <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "İstanbul"@tr ;
+                                                                                  
+                                                                                  <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#hasAbbr> <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İst.> .
+
+
+
+###  http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İzmir
+
+<http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#İzmir> rdf:type <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#City> ,
+                                                                                        :NamedIndividual ;
+                                                                               
+                                                                               <http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2#FullName> "İzmir"@tr .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+

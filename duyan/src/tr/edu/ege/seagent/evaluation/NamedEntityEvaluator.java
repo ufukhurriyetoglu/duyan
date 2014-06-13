@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 
 import tr.edu.ege.seagent.entity.Entity;
 import tr.edu.ege.seagent.json.JsonEntity;
+import tr.edu.ege.seagent.main.TextAnalyser;
 import tr.edu.ege.seagent.strategy.CapitalLetterCompositeStrategy;
 import tr.edu.ege.seagent.timer.TimeWatch;
 
@@ -38,7 +39,7 @@ public class NamedEntityEvaluator {
 		log.info("Total Accuracy : " + df.format(totalAccuracy / cnt)
 				+ " -- Percentage : %" + df.format(totalAccuracy / cnt * 100));
 	}
-	
+
 	public ArrayList<Measurement> calculateStrategyAccuracy(
 			ArrayList<Measurement> testPoolList) throws IOException,
 			SAXException, TransformerException, ParserConfigurationException {
@@ -56,8 +57,8 @@ public class NamedEntityEvaluator {
 				for (JsonEntity entity : analyzeTextList.getEntityJsonList()) {
 					String foundNamedEntity = entity.getName();
 					if (trueList[i].equals(foundNamedEntity)) {
-						 log.info(" Found : " + trueList[i] + " = " +
-						 foundNamedEntity);
+						log.info(" Found : " + trueList[i] + " = "
+								+ foundNamedEntity);
 						equalNer++;
 						break;
 					}
@@ -85,17 +86,19 @@ public class NamedEntityEvaluator {
 		for (Measurement measurement : testPoolList) {
 			TimeWatch watch = TimeWatch.start();
 
-//			ArrayList<Entity> analyzeTextList = new CapitalLetterTask()
-//					.generateEntities(new Entity(measurement.getContent()));
+			// ArrayList<Entity> analyzeTextList = new CapitalLetterTask()
+			// .generateEntities(new Entity(measurement.getContent()));
+//			ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+//					.regexCapitalLetterLookupPipeline(measurement.getContent());
 			String[] trueList = measurement.getTrueNamedEntityList();
-
+//
 			int equalNer = 0;
 //			for (int i = 0; i < trueList.length; i++) {
-//				for (Entity entity : analyzeTextList) {
+//				for (JsonEntity entity : regexCapitalLetterLookupPipeline) {
 //					String foundNamedEntity = entity.getName();
 //					if (trueList[i].equals(foundNamedEntity)) {
-//						// log.info(" Found : " + trueList[i] + " = " +
-//						// foundNamedEntity);
+//						 log.info(" Found : " + trueList[i] + " = " +
+//						 foundNamedEntity);
 //						equalNer++;
 //						break;
 //					}

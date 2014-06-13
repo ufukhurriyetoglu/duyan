@@ -20,6 +20,8 @@ import tr.edu.ege.seagent.entity.Entity;
 import tr.edu.ege.seagent.json.JsonEntity;
 import tr.edu.ege.seagent.json.JSONGenerator;
 import tr.edu.ege.seagent.lookup.DbpediaLookup;
+import tr.edu.ege.seagent.politics.OntoGenerator;
+import tr.edu.ege.seagent.regex.RegexOperator;
 import tr.edu.ege.seagent.zemberek.DisambiguateSentences;
 import tr.edu.ege.seagent.zemberek.NGramOperator;
 import tr.edu.ege.seagent.zemberek.SentenceParser;
@@ -29,17 +31,17 @@ import zemberek.morphology.apps.TurkishSentenceParser;
 
 public class TextAnalyser {
 
-	public Entity extractNamedEntitySet(Entity entityContent){
+	public Entity extractNamedEntitySet(Entity entityContent) {
 		TurkishMorphParser morphParser;
 		TreeSet<Entity> nerList = new TreeSet<Entity>();
 		String content = entityContent.getContent();
 		try {
-			morphParser = TurkishMorphParser
-					.createWithDefaults();
+			morphParser = TurkishMorphParser.createWithDefaults();
 			Z3MarkovModelDisambiguator disambiguator = new Z3MarkovModelDisambiguator();
 			TurkishSentenceParser sentenceParser = new TurkishSentenceParser(
 					morphParser, disambiguator);
-			DisambiguateSentences disa = new DisambiguateSentences(sentenceParser);
+			DisambiguateSentences disa = new DisambiguateSentences(
+					sentenceParser);
 			nerList = disa.parseAndDisambiguateSet(content);
 			Entity first = nerList.first();
 			entityContent.setEntityList(first.getEntityList());
@@ -134,9 +136,9 @@ public class TextAnalyser {
 		return entities;
 	}
 
-	public ArrayList<Entity> getEntitiesCapitalLetterText(TreeSet<Entity> content)
-			throws IOException, SAXException, TransformerException,
-			ParserConfigurationException {
+	public ArrayList<Entity> getEntitiesCapitalLetterText(
+			TreeSet<Entity> content) throws IOException, SAXException,
+			TransformerException, ParserConfigurationException {
 		// ArrayList<Entities> entities = getCapitalLetterPipeline(content);
 		ArrayList<Entity> entities = getCapitalLetterLookupPipeline(content);
 
@@ -155,31 +157,102 @@ public class TextAnalyser {
 
 	}
 
-	private ArrayList<Entity> getCapitalLetterLookupPipeline(TreeSet<Entity> content)
+	public ArrayList<JsonEntity> regexCapitalLetterLookupPipeline(String content,
+			String perFilePath, String locFilePath, String orgFilePath)
 			throws IOException, SAXException, TransformerException,
 			ParserConfigurationException {
+
+		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
+
+		RegexOperator rgOperator = new RegexOperator();
+		StringBuffer sb = rgOperator.eliminateLowerCaseWords(content,
+				rgOperator.DELIMITER);
+		TreeSet<String> candidateNerList = rgOperator
+				.obtainCandidateNamedEntities(sb, rgOperator.DELIMITER);
+
+//		for (String string : candidateNerList) {
+//			System.out.println("cand " + string);
+//		}
+		
+		// rgOperator.showListMembers(candidateNerList);
+		// ArrayList<SemanticTag> resolveNamedEntityListLookupDbpedia = new
+		// DbpediaLookup()
+		// .lookupDbpedia(candidateNerList);
+
+		TreeSet<SemanticTag> resolveNamedEntityListLookupDbpedia = new OntoGenerator().searchInOnto(candidateNerList,perFilePath,locFilePath,orgFilePath);
+		// ArrayList<SemanticTag> resolveNamedEntityListLookupDbpedia = new
+		// DbpediaSearcherInFile()
+		// .resolveInDbpedia(candidateNerList);
+
+		if (!resolveNamedEntityListLookupDbpedia.isEmpty()) {
+			// DBpedia da çözümlenebilen CandidateNerList elemanlarını sil
+			for (SemanticTag dbpedia : resolveNamedEntityListLookupDbpedia) {
+				candidateNerList.remove(new String(dbpedia.getName()));
+			}
+			regexResolvedEntityList(candidateNerList,
+					resolveNamedEntityListLookupDbpedia,perFilePath,locFilePath,orgFilePath);
+			entities = new JSONGenerator().acquireEntitiesRegex(content,
+					resolveNamedEntityListLookupDbpedia);
+		} else {
+
+			TreeSet<SemanticTag> resolveNamedEntityLookupDbpedia = new TreeSet<SemanticTag>();
+			regexResolvedEntityList(candidateNerList,
+					resolveNamedEntityLookupDbpedia,perFilePath,locFilePath,orgFilePath);
+			entities = new JSONGenerator().acquireEntitiesRegex(content,
+					resolveNamedEntityLookupDbpedia);
+		}
+		return entities;
+
+	}
+
+	public void regexResolvedEntityList(TreeSet<String> candidateNerList,
+			TreeSet<SemanticTag> resolveNamedEntityListLookupDbpedia,String perFilePath, String locFilePath, String orgFilePath)
+			throws IOException, SAXException, TransformerException,
+			ParserConfigurationException {
+		for (String word : candidateNerList) {
+			String[] splitedWords = word.split(" ");
+			TreeSet<String> ngramList = new NGramOperator().generateNgramsUpto(
+					word, splitedWords.length);
+
+			// ArrayList<SemanticTag> tempResolveNamedEntityLookup = new
+			// DbpediaLookup()
+			// .lookupDbpedia(ngramList);
+			TreeSet<SemanticTag> tempResolveNamedEntityLookup = new OntoGenerator().searchInOnto(ngramList,perFilePath,locFilePath,orgFilePath);
+//			ArrayList<SemanticTag> tempResolveNamedEntityLookup = new DbpediaSearcherInFile()
+//					.resolveInDbpedia(ngramList);
+			if(!tempResolveNamedEntityLookup.isEmpty())
+			resolveNamedEntityListLookupDbpedia
+					.addAll(tempResolveNamedEntityLookup);
+		}
+	}
+
+	private ArrayList<Entity> getCapitalLetterLookupPipeline(
+			TreeSet<Entity> content) throws IOException, SAXException,
+			TransformerException, ParserConfigurationException {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		TreeSet<Entity> candidateNerList = new TreeSet<Entity>();
-//		candidateNerList = extractNamedEntitySet(content);
-//		TreeSet<Entity> resolveNamedEntityListLookupDbpedia = new DbpediaLookup()
-//				.lookupDbpediaSet(candidateNerList);
-//		if (!resolveNamedEntityListLookupDbpedia.isEmpty()) {
-//			// DBpedia da çözümlenebilen CandidateNerList elemanlarını sil
-//			for (Entity dbpedia : resolveNamedEntityListLookupDbpedia) {
-//				candidateNerList.remove(new String(dbpedia.getName()));
-//			}
-//			obtainTempResolvedEntityList(candidateNerList,
-//					resolveNamedEntityListLookupDbpedia);
-//			entities = new JSONGenerator().acquireEntitiesSet(content,
-//					resolveNamedEntityListLookupDbpedia);
-//		} else {
-//
-//			TreeSet<Entity> resolveNamedEntityLookupDbpedia = new TreeSet<Entity>();
-//			obtainTempResolvedEntityList(candidateNerList,
-//					resolveNamedEntityLookupDbpedia);
-//			entities = new JSONGenerator().acquireEntitiesSet(content,
-//					resolveNamedEntityLookupDbpedia);
-//		}
+		// candidateNerList = extractNamedEntitySet(content);
+		// TreeSet<Entity> resolveNamedEntityListLookupDbpedia = new
+		// DbpediaLookup()
+		// .lookupDbpediaSet(candidateNerList);
+		// if (!resolveNamedEntityListLookupDbpedia.isEmpty()) {
+		// // DBpedia da çözümlenebilen CandidateNerList elemanlarını sil
+		// for (Entity dbpedia : resolveNamedEntityListLookupDbpedia) {
+		// candidateNerList.remove(new String(dbpedia.getName()));
+		// }
+		// obtainTempResolvedEntityList(candidateNerList,
+		// resolveNamedEntityListLookupDbpedia);
+		// entities = new JSONGenerator().acquireEntitiesSet(content,
+		// resolveNamedEntityListLookupDbpedia);
+		// } else {
+		//
+		// TreeSet<Entity> resolveNamedEntityLookupDbpedia = new
+		// TreeSet<Entity>();
+		// obtainTempResolvedEntityList(candidateNerList,
+		// resolveNamedEntityLookupDbpedia);
+		// entities = new JSONGenerator().acquireEntitiesSet(content,
+		// resolveNamedEntityLookupDbpedia);
+		// }
 		return entities;
 	}
 
@@ -191,13 +264,14 @@ public class TextAnalyser {
 		while (iterator.hasNext()) {
 			String word = iterator.next().getName().toString();
 			String[] splitedWords = word.split(" ");
-//			TreeSet<Entity> ngramList = new NGramOperator()
-//					.createNGramArray(splitedWords, splitedWords.length);
+			// TreeSet<Entity> ngramList = new NGramOperator()
+			// .createNGramArray(splitedWords, splitedWords.length);
 
-//			TreeSet<Entity> tempResolveNamedEntityLookup = new DbpediaLookup()
-//					.lookupDbpediaSet(ngramList);
-//			resolveNamedEntityListLookupDbpedia
-//					.addAll(tempResolveNamedEntityLookup);
+			// TreeSet<Entity> tempResolveNamedEntityLookup = new
+			// DbpediaLookup()
+			// .lookupDbpediaSet(ngramList);
+			// resolveNamedEntityListLookupDbpedia
+			// .addAll(tempResolveNamedEntityLookup);
 		}
 	}
 

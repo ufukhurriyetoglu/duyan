@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -61,7 +62,8 @@ public class JSONGenerator {
 
 		int cnt = 1;
 
-		Iterator<SemanticTag> iterator = disambiguatedDbpediaList.getDbpediaList().iterator();
+		Iterator<SemanticTag> iterator = disambiguatedDbpediaList
+				.getDbpediaList().iterator();
 		while (iterator.hasNext()) {
 			SemanticTag dbpedia = iterator.next();
 			String namedEntity = dbpedia.getName();
@@ -80,24 +82,24 @@ public class JSONGenerator {
 			}
 		}
 
-//		for (Dbpedia dbpedia : disambiguatedDbpediaList) {
-//			String namedEntity = dbpedia.getName();
-//
-//			// find all occurrences forward
-//			for (int beginOffset = -1; (beginOffset = content.indexOf(
-//					namedEntity, beginOffset + 1)) != -1;) {
-//				int endOffset = namedEntity.length() + beginOffset;
-//				// System.out.println("basi : " + beginOffset + " sonu : "
-//				// + endOffset);
-//
-//				// TODO uri
-//				entities.add(new Entities(namedEntity, disambiguatedDbpediaList
-//						.get(cnt - 1).getUri(), "T" + cnt,
-//						disambiguatedDbpediaList.get(cnt - 1).getType(),
-//						beginOffset, endOffset));
-//				cnt++;
-//			}
-//		}
+		// for (Dbpedia dbpedia : disambiguatedDbpediaList) {
+		// String namedEntity = dbpedia.getName();
+		//
+		// // find all occurrences forward
+		// for (int beginOffset = -1; (beginOffset = content.indexOf(
+		// namedEntity, beginOffset + 1)) != -1;) {
+		// int endOffset = namedEntity.length() + beginOffset;
+		// // System.out.println("basi : " + beginOffset + " sonu : "
+		// // + endOffset);
+		//
+		// // TODO uri
+		// entities.add(new Entities(namedEntity, disambiguatedDbpediaList
+		// .get(cnt - 1).getUri(), "T" + cnt,
+		// disambiguatedDbpediaList.get(cnt - 1).getType(),
+		// beginOffset, endOffset));
+		// cnt++;
+		// }
+		// }
 
 		return entities;
 	}
@@ -108,7 +110,7 @@ public class JSONGenerator {
 
 		int cnt = 1;
 		for (SemanticTag dbpedia : disambiguatedDbpediaList) {
-			String namedEntity = dbpedia.getName();
+			String namedEntity = dbpedia.getName().replaceAll("\"", "");
 
 			// find all occurrences forward
 			for (int beginOffset = -1; (beginOffset = content.indexOf(
@@ -118,12 +120,42 @@ public class JSONGenerator {
 				// + endOffset);
 
 				// TODO uri
-				entities.add(new JsonEntity(namedEntity, disambiguatedDbpediaList
-						.get(cnt - 1).getUri(), "T" + cnt,
-						disambiguatedDbpediaList.get(cnt - 1).getType(),
-						beginOffset, endOffset));
-				cnt++;
+				entities.add(new JsonEntity(namedEntity,
+						disambiguatedDbpediaList.get(cnt - 1).getUri(), "T"
+								+ cnt, disambiguatedDbpediaList.get(cnt - 1)
+								.getType(), beginOffset, endOffset));
 			}
+			cnt++;
+		}
+
+		return entities;
+	}
+
+	public ArrayList<JsonEntity> acquireEntitiesRegex(String content,
+			TreeSet<SemanticTag> resolveNamedEntityLookupDbpedia) {
+		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
+
+		int cnt = 1;
+		Iterator<SemanticTag> iterator = resolveNamedEntityLookupDbpedia
+				.iterator();
+		while (iterator.hasNext()) {
+			SemanticTag semanticTag = (SemanticTag) iterator.next();
+
+			String namedEntity = semanticTag.getName().replaceAll("\"", "");
+
+			// find all occurrences forward
+			for (int beginOffset = -1; (beginOffset = content.indexOf(
+					namedEntity, beginOffset + 1)) != -1;) {
+				int endOffset = namedEntity.length() + beginOffset;
+				// System.out.println("basi : " + beginOffset + " sonu : "
+				// + endOffset);
+
+				// TODO uri
+				entities.add(new JsonEntity(namedEntity, semanticTag.getUri(),
+						"T" + cnt, semanticTag.getType(), beginOffset,
+						endOffset));
+			}
+			cnt++;
 		}
 
 		return entities;

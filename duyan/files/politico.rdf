@@ -1,0 +1,556 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY dbpedia-owl "http://dbpedia.org/ontology/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:dbpedia-owl="http://dbpedia.org/ontology/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <Ontology rdf:about="http://data.ege.edu.tr/nerege">
+        <imports rdf:resource="http://webprotege.stanford.edu/project/D3CBGORKfCbnwJOanEIN6q"/>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#hasAbbr -->
+
+    <ObjectProperty rdf:about="&foaf;hasAbbr">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+        <rdfs:range rdf:resource="&foaf;Abbreviation"/>
+        <rdfs:subPropertyOf rdf:resource="&foaf;relationalProperty"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#hasSentiment -->
+
+    <ObjectProperty rdf:about="&foaf;hasSentiment">
+        <rdfs:range rdf:resource="&foaf;Sentiment"/>
+        <rdfs:subPropertyOf rdf:resource="&foaf;relationalProperty"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#isAnnotatedBy -->
+
+    <ObjectProperty rdf:about="&foaf;isAnnotatedBy">
+        <rdfs:domain rdf:resource="&foaf;Sentiment"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#leaderOf -->
+
+    <ObjectProperty rdf:about="&foaf;leaderOf">
+        <rdfs:range rdf:resource="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+        <rdfs:domain rdf:resource="&foaf;PartyLeader"/>
+        <rdfs:subPropertyOf rdf:resource="&foaf;relationalProperty"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#livesIn -->
+
+    <ObjectProperty rdf:about="&foaf;livesIn">
+        <rdfs:range rdf:resource="http://dbpedia.org/ontology/location"/>
+        <rdfs:subPropertyOf rdf:resource="&foaf;relationalProperty"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#memberOf -->
+
+    <ObjectProperty rdf:about="&foaf;memberOf">
+        <rdfs:range rdf:resource="http://dbpedia.org/ontology/Organisation"/>
+        <rdfs:subPropertyOf rdf:resource="&foaf;relationalProperty"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#relationalProperty -->
+
+    <ObjectProperty rdf:about="&foaf;relationalProperty"/>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#situatedIn -->
+
+    <ObjectProperty rdf:about="&foaf;situatedIn">
+        <rdfs:subPropertyOf rdf:resource="&foaf;relationalProperty"/>
+    </ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/FullName -->
+
+    <DatatypeProperty rdf:about="&foaf;FullName">
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/Organisation"/>
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/location"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#name -->
+
+    <DatatypeProperty rdf:about="&foaf;name"/>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#nativeName -->
+
+    <DatatypeProperty rdf:about="&foaf;nativeName">
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#polarity -->
+
+    <DatatypeProperty rdf:about="&foaf;polarity"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Abbreviation -->
+
+    <Class rdf:about="&foaf;Abbreviation">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#City -->
+
+    <Class rdf:about="&dbpedia-owl;City">
+        <rdfs:subClassOf rdf:resource="http://dbpedia.org/ontology/location"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Continent -->
+
+    <Class rdf:about="&dbpedia-owl;Continent">
+        <rdfs:subClassOf rdf:resource="http://dbpedia.org/ontology/location"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Country -->
+
+    <Class rdf:about="&dbpedia-owl;Country">
+        <rdfs:subClassOf rdf:resource="http://dbpedia.org/ontology/location"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#GovernmentParty -->
+
+    <Class rdf:about="&foaf;GovernmentParty">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#LocationAbbr -->
+
+    <Class rdf:about="&foaf;LocationAbbr">
+        <rdfs:subClassOf rdf:resource="&foaf;Abbreviation"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Minister -->
+
+    <Class rdf:about="&foaf;Minister">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Negative -->
+
+    <Class rdf:about="&foaf;Negative">
+        <rdfs:subClassOf rdf:resource="&foaf;Sentiment"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Neutral -->
+
+    <Class rdf:about="&foaf;Neutral">
+        <rdfs:subClassOf rdf:resource="&foaf;Sentiment"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#OppositionParty -->
+
+    <Class rdf:about="&foaf;OppositionParty">
+        <rdfs:subClassOf rdf:resource="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#OrganizationAbbr -->
+
+    <Class rdf:about="&foaf;OrganizationAbbr">
+        <rdfs:subClassOf rdf:resource="&foaf;Abbreviation"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Parliamentarian -->
+
+    <Class rdf:about="&foaf;Parliamentarian">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#PartyLeader -->
+
+    <Class rdf:about="&foaf;PartyLeader">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#PersonAbbr -->
+
+    <Class rdf:about="&foaf;PersonAbbr">
+        <rdfs:subClassOf rdf:resource="&foaf;Abbreviation"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Positive -->
+
+    <Class rdf:about="&foaf;Positive">
+        <rdfs:subClassOf rdf:resource="&foaf;Sentiment"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#President -->
+
+    <Class rdf:about="&foaf;President">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#PrimeMinister -->
+
+    <Class rdf:about="&foaf;PrimeMinister">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+    </Class>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Sentiment -->
+
+    <Class rdf:about="&foaf;Sentiment"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#AKP -->
+
+    <NamedIndividual rdf:about="&foaf;AKP">
+        <rdf:type rdf:resource="&foaf;OrganizationAbbr"/>
+        <foaf:FullName xml:lang="tr">Adalet ve Kalkınma Partisi</foaf:FullName>
+        <foaf:hasAbbr rdf:resource="&foaf;AKP"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Abdullah_Gül -->
+
+    <NamedIndividual rdf:about="&foaf;Abdullah_Gül">
+        <rdf:type rdf:resource="&foaf;President"/>
+        <foaf:FullName rdf:datatype="&xsd;string">Abdullah Gül</foaf:FullName>
+        <foaf:memberOf rdf:resource="&foaf;Ak_Parti"/>
+        <foaf:livesIn rdf:resource="&foaf;Ankara"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Ak_Parti -->
+
+    <NamedIndividual rdf:about="&foaf;Ak_Parti">
+        <rdf:type rdf:resource="&foaf;GovernmentParty"/>
+        <foaf:FullName>Adalet ve Kalkınma Partisi</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Ankara -->
+
+    <NamedIndividual rdf:about="&foaf;Ankara">
+        <rdf:type rdf:resource="&foaf;City"/>
+        <foaf:FullName xml:lang="tr">Ankara</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Asya -->
+
+    <NamedIndividual rdf:about="&foaf;Asya">
+        <rdf:type rdf:resource="&foaf;Continent"/>
+        <foaf:FullName xml:lang="tr">Asya</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#CHP -->
+
+    <NamedIndividual rdf:about="&foaf;CHP">
+        <rdf:type rdf:resource="&foaf;OrganizationAbbr"/>
+        <foaf:FullName xml:lang="tr">Cumhuriyet Halk Partisi</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Cumhuriyet_Halk_Partisi -->
+
+    <NamedIndividual rdf:about="&foaf;Cumhuriyet_Halk_Partisi">
+        <rdf:type rdf:resource="&foaf;OppositionParty"/>
+        <foaf:FullName xml:lang="tr">Cumhuriyet Halk Partisi</foaf:FullName>
+        <foaf:hasAbbr rdf:resource="&foaf;CHP"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Devlet_Bahçeli -->
+
+    <NamedIndividual rdf:about="&foaf;Devlet_Bahçeli">
+        <rdf:type rdf:resource="&foaf;Parliamentarian"/>
+        <foaf:FullName xml:lang="tr">Devlet Bahçeli</foaf:FullName>
+        <foaf:leaderOf rdf:resource="&foaf;Milliyetçi_Halk_Partisi"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Dr. -->
+
+    <NamedIndividual rdf:about="&foaf;Dr.">
+        <foaf:FullName xml:lang="tr">Doktor</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Kemal_Kılıçdaroğlu -->
+
+    <NamedIndividual rdf:about="&foaf;Kemal_Kılıçdaroğlu">
+        <rdf:type rdf:resource="&foaf;PartyLeader"/>
+        <foaf:FullName xml:lang="tr">Kemal Kılıçdaroğlu</foaf:FullName>
+        <foaf:leaderOf rdf:resource="&foaf;Cumhuriyet_Halk_Partisi"/>
+        <foaf:hasAbbr rdf:resource="&foaf;Dr."/>
+        <foaf:hasSentiment rdf:resource="&foaf;başarılı"/>
+        <foaf:livesIn rdf:resource="&foaf;İzmir"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#MHP -->
+
+    <NamedIndividual rdf:about="&foaf;MHP">
+        <rdf:type rdf:resource="&foaf;OrganizationAbbr"/>
+        <foaf:FullName xml:lang="tr">Milliyetçi Halk Partisi</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Mehmet_Şimşek -->
+
+    <NamedIndividual rdf:about="&foaf;Mehmet_Şimşek">
+        <rdf:type rdf:resource="&foaf;Minister"/>
+        <foaf:FullName xml:lang="tr">Mehmet Şimşek</foaf:FullName>
+        <foaf:memberOf rdf:resource="&foaf;Ak_Parti"/>
+        <foaf:livesIn rdf:resource="&foaf;Ankara"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Milliyetçi_Halk_Partisi -->
+
+    <NamedIndividual rdf:about="&foaf;Milliyetçi_Halk_Partisi">
+        <rdf:type rdf:resource="&foaf;OppositionParty"/>
+        <foaf:FullName xml:lang="tr">Milliyetçi Halk Partisi</foaf:FullName>
+        <foaf:hasAbbr rdf:resource="&foaf;MHP"/>
+        <foaf:situatedIn rdf:resource="&foaf;İstanbul"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Prof. -->
+
+    <NamedIndividual rdf:about="&foaf;Prof.">
+        <foaf:FullName xml:lang="tr">Profesör</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Tayyip_Erdoğan -->
+
+    <NamedIndividual rdf:about="&foaf;Tayyip_Erdoğan">
+        <rdf:type rdf:resource="&foaf;PrimeMinister"/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#Türkiye -->
+
+    <NamedIndividual rdf:about="&foaf;Türkiye">
+        <rdf:type rdf:resource="&foaf;Country"/>
+        <foaf:FullName xml:lang="tr">Türkiye</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#başarılı -->
+
+    <NamedIndividual rdf:about="&foaf;başarılı">
+        <rdf:type rdf:resource="&foaf;Positive"/>
+        <foaf:polarity rdf:datatype="&xsd;float">0.296</foaf:polarity>
+        <foaf:name xml:lang="en">success</foaf:name>
+        <foaf:nativeName xml:lang="tr">başarılı</foaf:nativeName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#güzel -->
+
+    <NamedIndividual rdf:about="&foaf;güzel">
+        <rdf:type rdf:resource="&foaf;Positive"/>
+        <foaf:polarity rdf:datatype="&xsd;float">0.865</foaf:polarity>
+        <foaf:name xml:lang="en">beatiful</foaf:name>
+        <foaf:nativeName xml:lang="tr">güzel</foaf:nativeName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#hoş -->
+
+    <NamedIndividual rdf:about="&foaf;hoş">
+        <rdf:type rdf:resource="&foaf;Positive"/>
+        <foaf:polarity rdf:datatype="&xsd;float">0.654</foaf:polarity>
+        <foaf:name xml:lang="en">nice</foaf:name>
+        <foaf:nativeName xml:lang="tr">hoş</foaf:nativeName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#normal -->
+
+    <NamedIndividual rdf:about="&foaf;normal">
+        <foaf:polarity rdf:datatype="&xsd;float">0.0</foaf:polarity>
+        <foaf:name xml:lang="en">normal</foaf:name>
+        <foaf:nativeName xml:lang="tr">normal</foaf:nativeName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#çirkin -->
+
+    <NamedIndividual rdf:about="&foaf;çirkin">
+        <rdf:type rdf:resource="&foaf;Negative"/>
+        <foaf:polarity rdf:datatype="&xsd;float">-0.875</foaf:polarity>
+        <foaf:name xml:lang="en">ugly</foaf:name>
+        <foaf:nativeName xml:lang="tr">çirkin</foaf:nativeName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#İst. -->
+
+    <NamedIndividual rdf:about="&foaf;İst.">
+        <rdf:type rdf:resource="&foaf;LocationAbbr"/>
+        <foaf:FullName xml:lang="tr">İstanbul</foaf:FullName>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#İstanbul -->
+
+    <NamedIndividual rdf:about="&foaf;İstanbul">
+        <rdf:type rdf:resource="&foaf;City"/>
+        <foaf:FullName xml:lang="tr">İstanbul</foaf:FullName>
+        <foaf:hasAbbr rdf:resource="&foaf;İst."/>
+    </NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/etmen/ontologies/2014/4/foaf#İzmir -->
+
+    <NamedIndividual rdf:about="&foaf;İzmir">
+        <rdf:type rdf:resource="&foaf;City"/>
+        <foaf:FullName xml:lang="tr">İzmir</foaf:FullName>
+    </NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

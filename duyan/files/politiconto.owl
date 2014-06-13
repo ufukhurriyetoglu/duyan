@@ -1,0 +1,657 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://www.semanticweb.org/etmen/ontologies/2014/4/untitled-ontology-2">
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>http://webprotege.stanford.edu/project/D3CBGORKfCbnwJOanEIN6q</Import>
+    <Declaration>
+        <Class IRI="#Abbreviation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#City"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Continent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Country"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GovernmentParty"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LocationAbbr"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Minister"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Negative"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Neutral"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OppositionParty"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OrganizationAbbr"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Parliamentarian"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PartyLeader"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PersonAbbr"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Positive"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#President"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PrimeMinister"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sentiment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasAbbr"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSentiment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isAnnotatedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#leaderOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#livesIn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#memberOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#relationalProperty"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#situatedIn"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#FullName"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#name"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#nativeName"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#polarity"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#AKP"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Abdullah_Gül"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Ak_Parti"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Ankara"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Asya"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#CHP"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Cumhuriyet_Halk_Partisi"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Devlet_Bahçeli"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Dr."/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Kemal_Kılıçdaroğlu"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#MHP"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Mehmet_Şimşek"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Milliyetçi_Halk_Partisi"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Prof."/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Tayyip_Erdoğan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Türkiye"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#başarılı"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#güzel"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#hoş"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#normal"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#çirkin"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#İst."/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#İstanbul"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#İzmir"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Abbreviation"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#City"/>
+        <Class IRI="http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Continent"/>
+        <Class IRI="http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Country"/>
+        <Class IRI="http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#GovernmentParty"/>
+        <Class IRI="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LocationAbbr"/>
+        <Class IRI="#Abbreviation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Minister"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Negative"/>
+        <Class IRI="#Sentiment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Neutral"/>
+        <Class IRI="#Sentiment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OppositionParty"/>
+        <Class IRI="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OrganizationAbbr"/>
+        <Class IRI="#Abbreviation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Parliamentarian"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PartyLeader"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PersonAbbr"/>
+        <Class IRI="#Abbreviation"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Positive"/>
+        <Class IRI="#Sentiment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#President"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PrimeMinister"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#President"/>
+        <NamedIndividual IRI="#Abdullah_Gül"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#GovernmentParty"/>
+        <NamedIndividual IRI="#Ak_Parti"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#City"/>
+        <NamedIndividual IRI="#Ankara"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Continent"/>
+        <NamedIndividual IRI="#Asya"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OppositionParty"/>
+        <NamedIndividual IRI="#Cumhuriyet_Halk_Partisi"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Parliamentarian"/>
+        <NamedIndividual IRI="#Devlet_Bahçeli"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#PartyLeader"/>
+        <NamedIndividual IRI="#Kemal_Kılıçdaroğlu"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Minister"/>
+        <NamedIndividual IRI="#Mehmet_Şimşek"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#OppositionParty"/>
+        <NamedIndividual IRI="#Milliyetçi_Halk_Partisi"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#PrimeMinister"/>
+        <NamedIndividual IRI="#Tayyip_Erdoğan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Country"/>
+        <NamedIndividual IRI="#Türkiye"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Positive"/>
+        <NamedIndividual IRI="#başarılı"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Positive"/>
+        <NamedIndividual IRI="#güzel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Positive"/>
+        <NamedIndividual IRI="#hoş"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Negative"/>
+        <NamedIndividual IRI="#çirkin"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#LocationAbbr"/>
+        <NamedIndividual IRI="#İst."/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#City"/>
+        <NamedIndividual IRI="#İstanbul"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#City"/>
+        <NamedIndividual IRI="#İzmir"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <NamedIndividual IRI="#AKP"/>
+        <NamedIndividual IRI="#AKP"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#livesIn"/>
+        <NamedIndividual IRI="#Abdullah_Gül"/>
+        <NamedIndividual IRI="#Ankara"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#memberOf"/>
+        <NamedIndividual IRI="#Abdullah_Gül"/>
+        <NamedIndividual IRI="#Ak_Parti"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <NamedIndividual IRI="#Cumhuriyet_Halk_Partisi"/>
+        <NamedIndividual IRI="#CHP"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#leaderOf"/>
+        <NamedIndividual IRI="#Devlet_Bahçeli"/>
+        <NamedIndividual IRI="#Milliyetçi_Halk_Partisi"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <NamedIndividual IRI="#Kemal_Kılıçdaroğlu"/>
+        <NamedIndividual IRI="#Dr."/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSentiment"/>
+        <NamedIndividual IRI="#Kemal_Kılıçdaroğlu"/>
+        <NamedIndividual IRI="#başarılı"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#leaderOf"/>
+        <NamedIndividual IRI="#Kemal_Kılıçdaroğlu"/>
+        <NamedIndividual IRI="#Cumhuriyet_Halk_Partisi"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#livesIn"/>
+        <NamedIndividual IRI="#Kemal_Kılıçdaroğlu"/>
+        <NamedIndividual IRI="#İzmir"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#livesIn"/>
+        <NamedIndividual IRI="#Mehmet_Şimşek"/>
+        <NamedIndividual IRI="#Ankara"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#memberOf"/>
+        <NamedIndividual IRI="#Mehmet_Şimşek"/>
+        <NamedIndividual IRI="#Ak_Parti"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <NamedIndividual IRI="#Milliyetçi_Halk_Partisi"/>
+        <NamedIndividual IRI="#MHP"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#situatedIn"/>
+        <NamedIndividual IRI="#Milliyetçi_Halk_Partisi"/>
+        <NamedIndividual IRI="#İstanbul"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <NamedIndividual IRI="#İstanbul"/>
+        <NamedIndividual IRI="#İst."/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#AKP"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Adalet ve Kalkınma Partisi</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Abdullah_Gül"/>
+        <Literal datatypeIRI="&xsd;string">Abdullah Gül</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Ak_Parti"/>
+        <Literal datatypeIRI="&rdf;PlainLiteral">Adalet ve Kalkınma Partisi</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Ankara"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Ankara</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Asya"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Asya</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#CHP"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Cumhuriyet Halk Partisi</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Cumhuriyet_Halk_Partisi"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Cumhuriyet Halk Partisi</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Devlet_Bahçeli"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Devlet Bahçeli</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Dr."/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Doktor</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Kemal_Kılıçdaroğlu"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Kemal Kılıçdaroğlu</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#MHP"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Milliyetçi Halk Partisi</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Mehmet_Şimşek"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Mehmet Şimşek</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Milliyetçi_Halk_Partisi"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Milliyetçi Halk Partisi</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Prof."/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Profesör</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#Türkiye"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">Türkiye</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#name"/>
+        <NamedIndividual IRI="#başarılı"/>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">success</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nativeName"/>
+        <NamedIndividual IRI="#başarılı"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">başarılı</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#polarity"/>
+        <NamedIndividual IRI="#başarılı"/>
+        <Literal datatypeIRI="&xsd;float">0.296</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#name"/>
+        <NamedIndividual IRI="#güzel"/>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">beatiful</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nativeName"/>
+        <NamedIndividual IRI="#güzel"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">güzel</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#polarity"/>
+        <NamedIndividual IRI="#güzel"/>
+        <Literal datatypeIRI="&xsd;float">0.865</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#name"/>
+        <NamedIndividual IRI="#hoş"/>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">nice</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nativeName"/>
+        <NamedIndividual IRI="#hoş"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">hoş</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#polarity"/>
+        <NamedIndividual IRI="#hoş"/>
+        <Literal datatypeIRI="&xsd;float">0.654</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#name"/>
+        <NamedIndividual IRI="#normal"/>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">normal</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nativeName"/>
+        <NamedIndividual IRI="#normal"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">normal</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#polarity"/>
+        <NamedIndividual IRI="#normal"/>
+        <Literal datatypeIRI="&xsd;float">0.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#name"/>
+        <NamedIndividual IRI="#çirkin"/>
+        <Literal xml:lang="en" datatypeIRI="&rdf;PlainLiteral">ugly</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nativeName"/>
+        <NamedIndividual IRI="#çirkin"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">çirkin</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#polarity"/>
+        <NamedIndividual IRI="#çirkin"/>
+        <Literal datatypeIRI="&xsd;float">-0.875</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#İst."/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">İstanbul</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#İstanbul"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">İstanbul</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#FullName"/>
+        <NamedIndividual IRI="#İzmir"/>
+        <Literal xml:lang="tr" datatypeIRI="&rdf;PlainLiteral">İzmir</Literal>
+    </DataPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <ObjectProperty IRI="#relationalProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasSentiment"/>
+        <ObjectProperty IRI="#relationalProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#leaderOf"/>
+        <ObjectProperty IRI="#relationalProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#livesIn"/>
+        <ObjectProperty IRI="#relationalProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#memberOf"/>
+        <ObjectProperty IRI="#relationalProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#situatedIn"/>
+        <ObjectProperty IRI="#relationalProperty"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#hasAbbr"/>
+    </FunctionalObjectProperty>
+    <InverseFunctionalObjectProperty>
+        <ObjectProperty IRI="#hasAbbr"/>
+    </InverseFunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <Class IRI="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasSentiment"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isAnnotatedBy"/>
+        <Class IRI="#Sentiment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#leaderOf"/>
+        <Class IRI="#PartyLeader"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#livesIn"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#memberOf"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasAbbr"/>
+        <Class IRI="#Abbreviation"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasSentiment"/>
+        <Class IRI="#Sentiment"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#leaderOf"/>
+        <Class IRI="http://webprotege.stanford.edu/RDzLImb0CSlzBgOfwUenuHX"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#livesIn"/>
+        <Class IRI="http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#memberOf"/>
+        <Class IRI="http://webprotege.stanford.edu/RDTFgOSeobKIeju5cNgIiCH"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#nativeName"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#FullName"/>
+        <Class IRI="http://webprotege.stanford.edu/R7rp9HGPDkpPVYuuo5DgfLY"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#FullName"/>
+        <Class IRI="http://webprotege.stanford.edu/RBdPrXAzpSrkclpHYvgCH6b"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#FullName"/>
+        <Class IRI="http://webprotege.stanford.edu/RDTFgOSeobKIeju5cNgIiCH"/>
+    </DataPropertyDomain>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

@@ -112,10 +112,10 @@ public class DbpediaLookup {
 			}
 		}
 
-		for (SemanticTag d : dbpediaResolvedList) {
-			System.out.println(d.getName() + " - " + d.getType() + " - "
-					+ d.getUri());
-		}
+//		for (SemanticTag d : dbpediaResolvedList) {
+//			System.out.println(d.getName() + " - " + d.getType() + " - "
+//					+ d.getUri());
+//		}
 
 		return dbpediaResolvedList;
 	}

@@ -3,7 +3,9 @@ package tr.edu.ege.seagent.servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.TreeSet;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,12 +19,12 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
+import tr.edu.ege.seagent.dbpedia.SemanticTag;
 import tr.edu.ege.seagent.entity.Entity;
+import tr.edu.ege.seagent.fileio.FileOperator;
 import tr.edu.ege.seagent.strategy.CapitalLetterCompositeStrategy;
 import tr.edu.ege.seagent.strategy.JsonStrategyGenerator;
-import tr.edu.ege.seagent.task.CapitalLetterTask;
 
-import com.google.web.bindery.autobean.gwt.client.impl.JsoSplittable;
 import com.hp.hpl.jena.util.FileUtils;
 
 /**
@@ -52,6 +54,15 @@ public class DuyanServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		response.setCharacterEncoding(FileUtils.encodingUTF8);
 		PrintWriter out = response.getWriter();
+		
+		
+		ServletContext perContext = getServletContext();
+		ServletContext locContext = getServletContext();
+		ServletContext orgContext = getServletContext();
+		String perFullPath = perContext.getRealPath("/WEB-INF/files/dbpediaNames.csv");
+		String locFullPath = locContext.getRealPath("/WEB-INF/files/dbpediaLocations.csv");
+		String orgFullPath = orgContext.getRealPath("/WEB-INF/files/DbpediaOrg.csv");
+		
 
 		// URL url2 = new URL(DBPEDIA_CNTRL_URL);
 		// HttpURLConnection urlh = (HttpURLConnection) url2.openConnection();
@@ -67,7 +78,7 @@ public class DuyanServlet extends HttpServlet {
 			} else {
 				String resultContent = "";
 				try {
-					resultContent = hcp.colorifyNamedEntityStrategy(content);
+					resultContent = hcp.colorifyNamedEntityStrategy(content,perFullPath,locFullPath,orgFullPath);
 				} catch (SAXException | TransformerException
 						| ParserConfigurationException e1) {
 					// TODO Auto-generated catch block

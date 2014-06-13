@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 
 import tr.edu.ege.seagent.entity.Entity;
 import tr.edu.ege.seagent.json.JsonEntity;
+import tr.edu.ege.seagent.main.TextAnalyser;
 import tr.edu.ege.seagent.strategy.CapitalLetterCompositeStrategy;
 import tr.edu.ege.seagent.task.CapitalLetterTask;
 
@@ -103,20 +104,20 @@ public class HtmlContentProvider {
 				+ "</b></font></p>" + "</body> \n" + "</html>";
 	}
 
-	public String colorifyNamedEntityStrategy(String content)
+	public String colorifyNamedEntityStrategy(String content,String perFilePath,String locFilePath,String orgFilePath)
 			throws IOException, SAXException, TransformerException,
 			ParserConfigurationException {
-		Entity entityJson = new CapitalLetterCompositeStrategy()
-				.doOperation(new Entity(content));
+//		Entity entityJson = new CapitalLetterCompositeStrategy()
+//				.doOperation(new Entity(content));
 
-		ArrayList<JsonEntity> analyzeTextList = entityJson.getEntityJsonList();
-
+//		ArrayList<JsonEntity> analyzeTextList = entityJson.getEntityJsonList();
+		ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser().regexCapitalLetterLookupPipeline(content,perFilePath,locFilePath,orgFilePath);
 		String oldNamedEntity, newNamedEntity = "";
 		String resultContent = content;
-		if (analyzeTextList.isEmpty()) {
+		if (regexCapitalLetterLookupPipeline.isEmpty()) {
 			resultContent = "";
 		} else {
-			for (JsonEntity entities : analyzeTextList) {
+			for (JsonEntity entities : regexCapitalLetterLookupPipeline) {
 				oldNamedEntity = content.substring(entities.getStart(),
 						entities.getEnd());
 				String coloringStart = " <mark style=\"background-color:"
