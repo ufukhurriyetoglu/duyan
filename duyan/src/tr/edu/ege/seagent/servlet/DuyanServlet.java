@@ -3,6 +3,7 @@ package tr.edu.ege.seagent.servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
@@ -22,6 +23,9 @@ import org.xml.sax.SAXException;
 import tr.edu.ege.seagent.dbpedia.SemanticTag;
 import tr.edu.ege.seagent.entity.Entity;
 import tr.edu.ege.seagent.fileio.FileOperator;
+import tr.edu.ege.seagent.json.JSONGenerator;
+import tr.edu.ege.seagent.json.JsonEntity;
+import tr.edu.ege.seagent.main.TextAnalyser;
 import tr.edu.ege.seagent.strategy.CapitalLetterCompositeStrategy;
 import tr.edu.ege.seagent.strategy.JsonStrategyGenerator;
 
@@ -91,15 +95,28 @@ public class DuyanServlet extends HttpServlet {
 
 					String selected = request.getParameter("outputtype");
 					if (selected.equals("Json")) {
+						
+						try {
+							ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+							.regexCapitalLetterLookupPipeline(content, perFullPath,
+									locFullPath, orgFullPath);
+							String createJsonRegex = new JSONGenerator().createJsonRegex(content,regexCapitalLetterLookupPipeline);
+							out.println(hcp
+									.getJsonContent(createJsonRegex));
+						} catch (SAXException | TransformerException
+								| ParserConfigurationException e) {
+							e.printStackTrace();
+						}
+						
 						// String jsonResult = new TextAnalyser()
 						// .analyzeText(content);
 						// jsonResult = new CapitalLetterTask()
 						// .perform(content);
-						Entity entityJson = new CapitalLetterCompositeStrategy()
-								.doOperation(new Entity(content));
-						out.println(hcp
-								.getJsonContent(new JsonStrategyGenerator()
-										.generateJson(entityJson)));
+//						Entity entityJson = new CapitalLetterCompositeStrategy()
+//								.doOperation(new Entity(content));
+//						out.println(hcp
+//								.getJsonContent(new JsonStrategyGenerator()
+//										.generateJson(entityJson)));
 //						out.println(hcp.getJsonContent(resultContent));
 					} else if (selected.equals("Vites")) {
 						

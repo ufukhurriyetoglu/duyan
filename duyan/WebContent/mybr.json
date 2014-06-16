@@ -1,0 +1,10 @@
+[
+	{
+		"text":"Yapılan düğünde Arda Turan ve Hakan Şükür hazır bulundu.",
+		"entities":
+			{
+				"entity2":["T2","Person",[[30,41]]],
+				"entity1":["T1","Person",[[16,26]]]
+			}
+	}
+] 

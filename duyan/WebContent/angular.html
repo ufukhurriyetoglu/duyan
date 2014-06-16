@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body ng-controller="StoreController as store">
+	<!--  Store Header  -->
+	<header>
+		<h1 class="text-center">Türkçe Cümlelerin Listesi</h1>
+		<h2 class="text-center">Örnek Cümle</h2>
+	</header>
+
+	<!--  Products Container  -->
+	<div class="list-group">
+		<!--  Product Container  -->
+
+		<div class="list-group-item" ng-repeat="product in store.products">
+			<h3>
+				{{product.text}}
+
+
+
+				<!-- 				<em class="pull-right">{{product.entity | currency}}</em> -->
+			</h3>
+			<hr />
+			<br />
+			<!-- 			<h2>{{product.entities}}</h2> -->
+			<b>Entities:</b><br />
+			<div ng-repeat="entity in product.entities">
+				{{entity}}
+				<ul>
+					<li ng-repeat="params in entity">{{params}}</li>
+					{{params.}}
+				</ul>
+			</div>
+		</div>
+		<div class="list-group-item" ng-repeat="entity in product.entities">
+			<h2>{{entity.name}}</h2>
+		</div>
+
+	</div>
+</body>
+</html>
