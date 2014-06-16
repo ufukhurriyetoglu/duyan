@@ -1,10 +1,22 @@
 [
 	{
 		"text":"Yapılan düğünde Arda Turan ve Hakan Şükür hazır bulundu.",
-		"entities":
-			{
-				"entity2":["T2","Person",[[30,41]]],
-				"entity1":["T1","Person",[[16,26]]]
-			}
+		"entities": [
+					{
+					"name":"entity2",
+					"uri":"http://dbpedia.org/resource/Hakan_%C5%9E%C3%BCk%C3%BCr",
+					"id":"T2",
+					"type":"Person",
+					"start":30,
+					"end":41
+					},
+					{"name":"entity1",
+					"uri":"http://dbpedia.org/resource/Arda_Turan",
+					"id":"T1",
+					"type":"Person",
+					"start":16,
+					"end":26
+					}
+			]
 	}
 ] 

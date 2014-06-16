@@ -2,9 +2,43 @@
 <html ng-app="gemStore">
 <head>
 <meta charset="utf-8" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /> -->
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+
+<style type="text/css">
+.tooltip {
+	display: inline;
+	position: relative;
+}
+
+.tooltip:hover:after {
+	background: #333;
+	background: rgba(0, 0, 0, .8);
+	border-radius: 5px;
+	bottom: 26px;
+	color: #fff;
+	content: attr(title);
+	left: 25%;
+	text-align: center;
+	padding: 5px 5px;
+	position: absolute;
+	z-index: 98;
+	width: 80px;
+}
+
+.tooltip:hover:before {
+	border: solid;
+	border-color: #333 transparent;
+	border-width: 6px 6px 0 6px;
+	bottom: 20px;
+	content: "";
+	left: 50%;
+	position: absolute;
+	z-index: 99;
+}
+</style>
+
 </head>
 
 <body ng-controller="StoreController as store">
@@ -18,29 +52,23 @@
 	<div class="list-group">
 		<!--  Product Container  -->
 
+
+
 		<div class="list-group-item" ng-repeat="product in store.products">
-			<h3>
-				{{product.text}}
-
-
-
-				<!-- 				<em class="pull-right">{{product.entity | currency}}</em> -->
-			</h3>
+			<h3>{{product.text}}</h3>
 			<hr />
-			<br />
-			<!-- 			<h2>{{product.entities}}</h2> -->
-			<b>Entities:</b><br />
+			<br /> <b>Entities:</b><br />
 			<div ng-repeat="entity in product.entities">
-				{{entity}}
-				<ul>
-					<li ng-repeat="params in entity">{{params}}</li>
-					{{params.}}
-				</ul>
+			{{ product.text.substring(entity.start,entity.end) }} - {{entity.uri}} 
+				<mark style="background-color: #9CC2E6">
+					<a ng-href="{{entity.uri}}" title={{entity.type}} class="tooltip">
+					<span title="{{entity.uri}}">{{
+						product.text.substring(entity.start,entity.end) }}</span></a>
+				</mark>
 			</div>
 		</div>
-		<div class="list-group-item" ng-repeat="entity in product.entities">
-			<h2>{{entity.name}}</h2>
-		</div>
+
+<p>  <br/><br/>Yapılan düğünde  <mark style="background-color:#9CC2E6">  <a href="http://dbpedia.org/resource/Arda_Turan" title=Person class="tooltip">	<span title="http://dbpedia.org/resource/Arda_Turan">Arda Turan</span></a></mark> hazır bulundu.</p>
 
 	</div>
 </body>
