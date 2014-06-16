@@ -100,6 +100,7 @@ public class DuyanServlet extends HttpServlet {
 						out.println(hcp
 								.getJsonContent(new JsonStrategyGenerator()
 										.generateJson(entityJson)));
+//						out.println(hcp.getJsonContent(resultContent));
 					} else if (selected.equals("Vites")) {
 						
 				out.println(hcp

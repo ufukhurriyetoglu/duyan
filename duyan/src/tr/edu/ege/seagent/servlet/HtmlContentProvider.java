@@ -88,8 +88,10 @@ public class HtmlContentProvider {
 	}
 
 	public String getJsonContent(String jsonResult) {
-		return htmlHeadCode + title + "<hr/>" + "</head> \n" + "<body> \n"
-				+ jsonResult + "</body> \n" + "</html>";
+		// return htmlHeadCode + title + "<hr/>" + "</head> \n" + "<body> \n"
+		// + jsonResult + "</body> \n" + "</html>";
+		// aşağıdaki parantezler olmazsa angularjs çalışmıyor...
+		return "[" + jsonResult + "]";
 	}
 
 	public String getNullContent() {
@@ -104,14 +106,18 @@ public class HtmlContentProvider {
 				+ "</b></font></p>" + "</body> \n" + "</html>";
 	}
 
-	public String colorifyNamedEntityStrategy(String content,String perFilePath,String locFilePath,String orgFilePath)
+	public String colorifyNamedEntityStrategy(String content,
+			String perFilePath, String locFilePath, String orgFilePath)
 			throws IOException, SAXException, TransformerException,
 			ParserConfigurationException {
-//		Entity entityJson = new CapitalLetterCompositeStrategy()
-//				.doOperation(new Entity(content));
+		// Entity entityJson = new CapitalLetterCompositeStrategy()
+		// .doOperation(new Entity(content));
 
-//		ArrayList<JsonEntity> analyzeTextList = entityJson.getEntityJsonList();
-		ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser().regexCapitalLetterLookupPipeline(content,perFilePath,locFilePath,orgFilePath);
+		// ArrayList<JsonEntity> analyzeTextList =
+		// entityJson.getEntityJsonList();
+		ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+				.regexCapitalLetterLookupPipeline(content, perFilePath,
+						locFilePath, orgFilePath);
 		String oldNamedEntity, newNamedEntity = "";
 		String resultContent = content;
 		if (regexCapitalLetterLookupPipeline.isEmpty()) {
