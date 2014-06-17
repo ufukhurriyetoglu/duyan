@@ -7,6 +7,14 @@
 <script type="text/javascript" src="js/app.js"></script>
 
 <style type="text/css">
+p {
+	padding-top: 10px;
+}
+
+input {
+	width: 500px;
+}
+
 .tooltip {
 	display: inline;
 	position: relative;
@@ -41,11 +49,13 @@
 
 </head>
 
-<body ng-controller="StoreController as store">
+<body ng-controller="StoreController as store" onLoad="myscript();">
 	<!--  Store Header  -->
 	<header>
-		<h1 class="text-center">Türkçe Cümlelerin Listesi</h1>
+		<h1 class="text-center">Vites : Varlık İsmi Tanımlama ve
+			Etiketleme Sistemi</h1>
 		<h2 class="text-center">Örnek Cümle</h2>
+		<hr />
 	</header>
 
 	<!--  Products Container  -->
@@ -57,18 +67,34 @@
 		<div class="list-group-item" ng-repeat="product in store.products">
 			<h3>{{product.text}}</h3>
 			<hr />
-			<br /> <b>Entities:</b><br />
+			<!-- 			<br /> <b>Entities:</b><br /> -->
 			<div ng-repeat="entity in product.entities">
-			{{ product.text.substring(entity.start,entity.end) }} - {{entity.uri}} 
-				<mark style="background-color: #9CC2E6">
-					<a ng-href="{{entity.uri}}" title={{entity.type}} class="tooltip">
-					<span title="{{entity.uri}}">{{
-						product.text.substring(entity.start,entity.end) }}</span></a>
-				</mark>
+				<!-- 			{{ product.text.substring(entity.start,entity.end) }} - {{entity.uri}}  -->
+				<!-- 				{{ product.text | limitTo:entity.start }} -->
+				<div id="mark">
+					<mark style="background-color: #9CC2E6">
+						<a ng-href="{{entity.uri}}" title={{entity.type}} class="tooltip">
+							<span title="{{entity.uri}}">{{
+								product.text.substring(entity.start,entity.end) }}</span>
+						</a>
+					</mark>
+				</div>
 			</div>
+			<hr />
+			<br />
 		</div>
 
-<p>  <br/><br/>Yapılan düğünde  <mark style="background-color:#9CC2E6">  <a href="http://dbpedia.org/resource/Arda_Turan" title=Person class="tooltip">	<span title="http://dbpedia.org/resource/Arda_Turan">Arda Turan</span></a></mark> hazır bulundu.</p>
+<span hint=""><em>Hint:</em> hover over <code class="nocode ng-scope" popover-title="Hover" popover-trigger="mouseenter" popover-append-to-body="true" popover="Place your mouse over highlighted areas in the code for explanations.">me</code>.</span>
+
+		<p>
+			<br /> <br />Yapılan düğünde
+			<mark style="background-color: #9CC2E6">
+				<a href="http://dbpedia.org/resource/Arda_Turan" title=Person
+					class="tooltip"> <span
+					title="http://dbpedia.org/resource/Arda_Turan">Arda Turan</span></a>
+			</mark>
+			hazır bulundu.
+		</p>
 
 	</div>
 </body>
