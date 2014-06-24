@@ -83,7 +83,7 @@ public class OntoGenerator {
 		if (obj.equals("http://xmlns.com/foaf/0.1/Person"))
 			type = "Person";
 		else if (obj.equals("http://xmlns.com/foaf/0.1/Organization"))
-			type = "Organisation";
+			type = "Organization";
 		else
 			type = "Location";
 		return type;

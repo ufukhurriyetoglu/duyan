@@ -183,7 +183,7 @@ public class HtmlContentProvider {
 		if (type.equals("Person"))
 //			color = "#9CC2E6";
 			color = "btn btn-warning btn-xs active";
-		else if (type.equals("Organisation"))
+		else if (type.equals("Organization"))
 //			color = "#C1E19E";
 			color = "btn btn-default btn-xs active";
 		else
