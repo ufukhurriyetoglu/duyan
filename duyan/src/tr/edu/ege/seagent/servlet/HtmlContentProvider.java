@@ -91,7 +91,8 @@ public class HtmlContentProvider {
 		// return htmlHeadCode + title + "<hr/>" + "</head> \n" + "<body> \n"
 		// + jsonResult + "</body> \n" + "</html>";
 		// aşağıdaki parantezler olmazsa angularjs çalışmıyor...
-		return "[" + jsonResult + "]";
+//		return "[" + jsonResult + "]";
+		return jsonResult;
 	}
 
 	public String getNullContent() {
@@ -180,11 +181,14 @@ public class HtmlContentProvider {
 	public String identifyBackgroundColor(String type) {
 		String color = "";
 		if (type.equals("Person"))
-			color = "#9CC2E6";
+//			color = "#9CC2E6";
+			color = "btn btn-warning btn-xs active";
 		else if (type.equals("Organization"))
-			color = "#C1E19E";
+//			color = "#C1E19E";
+			color = "btn btn-default btn-xs active";
 		else
-			color = "#DFB4B4";
+//			color = "#DFB4B4";
+		color = "btn btn-info btn-xs active";
 		return color;
 	}
 

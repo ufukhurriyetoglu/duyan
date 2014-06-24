@@ -1,57 +1,51 @@
-(function() {
-	var app = angular.module('gemStore', []);
+var app = angular.module('angularjs-starter', [ 'jsonService', 'ngSanitize' ]);
 
-	app
-			.controller(
-					'StoreController',
-					[
-							'$http',
-							function($http) {
-								var url = "http://localhost:8080/duyan/DuyanServlet?content=Yap%C4%B1lan+d%C3%BC%C4%9F%C3%BCnde+Arda+Turan+ve+Hakan+%C5%9E%C3%BCk%C3%BCr+haz%C4%B1r+bulundu.&outputtype=Json";
-								var store = this;
-								store.products = [];
-								$http.get('mybr.json').success(
-										function(data) {
-											store.products = data;
-											console.log("json : "
-													+ JSON.stringify(data));
-										});
-								
-//							     angular.forEach(store.products, function(value, key) {
-//							    	    /* do something for all key: value pairs */
-//							         console.log("hh" + value);
-//							    	});
-//							     
-//							     angular.forEach(store.products,function(value,index){
-//						                alert(value.name);
-//						            });
-								
-							} ]);
 
-	/*
-	 * app.controller('ReviewController', function() { this.review = {};
-	 * 
-	 * this.addReview = function(product) { product.reviews.push(this.review);
-	 * 
-	 * this.review = {}; }; });
-	 */
-	
-//	app.directive('parseUrl', function() {
-//		  var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
-//		  return {    
-//		    restrict: 'A',    
-//		    require: 'ngModel',
-//		    replace: true,   
-//		    scope: { props: '=parseUrl', ngModel: '=ngModel' },
-//		    link: function compile(scope, element, attrs, controller) {         
-//		        scope.$watch('ngModel', function(value) {         
-//		            angular.forEach(value.match(urlPattern), function(url) {
-//		                value = value.replace(url, "<a target=\"" + scope.props.target + "\" href="+ url + ">" + url +"</a>");
-//		            });
-//		            element.html(value + " | " + scope.props.otherProp);        
-//		          });                
-//		    }
-//		  };  
-//		});
-})();
 
+app.controller('MainCtrl', function($scope, JsonService) {
+
+	$scope.content = 'Yapılan düğünde Arda Turan hazır bulundu.';
+	JsonService.get(function(data) {
+		$scope.text = data.text;
+		$scope.entities = data.entities;
+
+		var txtm = $scope.text;
+		for (var i = 0; i <= $scope.entities.length; i++) {
+			if ($scope.entities[i] && $scope.entities[i].id) {
+				var ner = $scope.text.substring($scope.entities[i].start,
+						$scope.entities[i].end);
+				var changedNer = '<mark style="background-color: '
+						+ $scope.entities[i].color + '">' + '<a href="'
+						+ $scope.entities[i].dbpediaUri + '" title='
+						+ $scope.entities[i].type + ' class="tooltip">'
+						+ '<span title="' + $scope.entities[i].dbpediaUri + '">' + ner
+						+ '</span></a></mark>';
+				if ($scope.text.indexOf(ner) > -1) {
+					txtm = txtm.replace(ner, changedNer);
+				}
+			}
+		}
+		$scope.text = txtm;
+	});
+});
+
+app.directive('myDirective', function() {
+
+	return {
+
+		restrict : 'AE',
+		transclude : true,
+		replace : true,
+		scope : {
+			myUrl : '@',
+			myType : '@',
+			myName : '@',
+			myColor : '@',
+			myText : '@'
+		},
+		// template : '<mark style="background-color: {{myColor}}">'
+		// + '<a ng-href="{{myUrl}}" title={{myType}} class="tooltip">'
+		// + '<span title="{{myUrl}}">{{myName}}</span></a></mark></div>'
+		template : '<div ng-transclude>{{myText}}</div>'
+	};
+});

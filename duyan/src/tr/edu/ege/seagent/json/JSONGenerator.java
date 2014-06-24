@@ -1,5 +1,7 @@
 package tr.edu.ege.seagent.json;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,46 +14,86 @@ import org.json.simple.JSONObject;
 
 import tr.edu.ege.seagent.dbpedia.SemanticTag;
 import tr.edu.ege.seagent.entity.Entity;
+import tr.edu.ege.seagent.servlet.HtmlContentProvider;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class JSONGenerator {
-	
-	@SuppressWarnings("unchecked")
-	public String createJsonRegex(String sentence, ArrayList<JsonEntity> entities) {
 
-		JSONObject obj = new JSONObject();
-		obj.put("text", sentence);
+	// {
+	// "text":"Yapılan düğünde Arda Turan ve Hakan Şükür hazır bulundu.",
+	// "entities": [
+	// {
+	// "name":"entity2",
+	// "uri":"http://dbpedia.org/resource/Hakan_%C5%9E%C3%BCk%C3%BCr",
+	// "id":"T2",
+	// "type":"Person",
+	// "color":"#9CC2E6",
+	// "start":30,
+	// "end":41
+	// },
+	// {"name":"entity1",
+	// "uri":"http://dbpedia.org/resource/Arda_Turan",
+	// "id":"T1",
+	// "type":"Person",
+	// "color":"#9CC2E6",
+	// "start":16,
+	// "end":26
+	// }
+	// ]
+	// }
+
+	@SuppressWarnings("unchecked")
+	public String createJsonRegex(String sentence,
+			ArrayList<JsonEntity> entitiesList) throws URISyntaxException {
+
+//		JSONObject obj = new JSONObject();
+//		obj.put("text", sentence);
+		JsonEntityHeader jsonHeader = new JsonEntityHeader();
+		  jsonHeader.setText(sentence);
+		 
 
 		String entityStr = "entity";
-		Map<String, List<String>> map = new HashMap<String, List<String>>();
-		Map<String, List<Integer>> mapEntityNumbers = new HashMap<String, List<Integer>>();
 
 		// creates child nodes
 		int i = 1;
-		for (JsonEntity entity : entities) {
-			JSONArray list = new JSONArray();
-			ArrayList<Integer> tmpNumbers = new ArrayList<Integer>();
-			list.add(entity.getT());
-			list.add(entity.getType());
-			list.add(entity.getStart());
-			list.add(entity.getEnd());
-			tmpNumbers.add(entity.getStart());
-			tmpNumbers.add(entity.getEnd());
-			mapEntityNumbers.put(entityStr + i, tmpNumbers);
-			map.put(entityStr + i, list);
+		
+		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
+//		JSONArray list = new JSONArray();
+		for (JsonEntity ent : entitiesList) {
+//			JSONObject entity = new JSONObject();
+			  JsonEntity entity = new JsonEntity();
+			entity.setName(entityStr + i);
+			String uriStr = ent.getDbpediaUri().substring(1, ent.getDbpediaUri().length()-1);
+//			String str = ent.getDbpediaUri().toString();
+			entity.setDbpediaUri(uriStr);
+			entity.setT(ent.getT());
+			entity.setType(ent.getType());
+			String color = new HtmlContentProvider().identifyBackgroundColor(ent.getType());
+			entity.setColor(color);
+			entity.setStart(ent.getStart());
+			entity.setEnd(ent.getEnd());
+			entities.add(entity);
+//			list.add(entity);
 			i++;
 		}
+//		obj.put("entities", list);
+		
+		  jsonHeader.setEntities(entities);
+		  
+		  Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		  //you don't need the GsonBuilder if you are just sending the 
+		  //data to another system or AJAX response, in that case just use
+		  //Gson gson = new Gson();
+		   
+		  // convert java object to JSON format, so easy
+		  String jsonString = gson.toJson(jsonHeader);
+		
 
-		JSONObject objTmp = new JSONObject();
-		objTmp.putAll(map);
-		obj.put("entities", objTmp);
-
-		String jsonString = obj.toJSONString();
-		for (int j = 1; j <= mapEntityNumbers.size(); j++) {
-			Integer start = mapEntityNumbers.get(entityStr + j).get(0);
-			Integer end = mapEntityNumbers.get(entityStr + j).get(1);
-			jsonString = jsonString.replace("" + start + "," + end + "",
-					" [ [ " + start + "," + end + " ] ]");
-		}
+//		String jsonString = obj.toJSONString();
+//		System.out.println(((JSONObject)((JSONArray)obj.get("entities")).get(0)).get("uri"));
+		System.out.println(jsonString);
 
 		return jsonString;
 	}

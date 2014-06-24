@@ -1,5 +1,4 @@
-[
-	{
+{
 		"text":"Yapılan düğünde Arda Turan ve Hakan Şükür hazır bulundu.",
 		"entities": [
 					{
@@ -7,6 +6,7 @@
 					"uri":"http://dbpedia.org/resource/Hakan_%C5%9E%C3%BCk%C3%BCr",
 					"id":"T2",
 					"type":"Person",
+					"color":"#9CC2E6",
 					"start":30,
 					"end":41
 					},
@@ -14,9 +14,13 @@
 					"uri":"http://dbpedia.org/resource/Arda_Turan",
 					"id":"T1",
 					"type":"Person",
+					"color":"#9CC2E6",
 					"start":16,
 					"end":26
 					}
 			]
-	}
-]
+}
+
+{"postalcodes":[{"adminCode3":"09677","adminName2":"Unterfranken","adminName3":"Main-Spessart","adminCode2":"096","postalcode":"97845","adminCode1":"BY","countryCode":"DE","lng":9.5675,"placeName":"Neustadt am Main","lat":49.9308,"adminName1":"Bayern"}]}
+
+

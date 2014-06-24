@@ -8,6 +8,11 @@ public class JsonEntity {
 	private int start;
 	private int end;
 	private String name;
+	private String color;
+	
+	public JsonEntity(){
+		
+	}
 
 	public JsonEntity(String id, String type, int start, int end) {
 		this.id = id;
@@ -79,6 +84,14 @@ public class JsonEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

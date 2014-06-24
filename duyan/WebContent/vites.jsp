@@ -98,11 +98,11 @@
 							<br></td>
 					</tr>
 					<tr>
-						<td><strong>Sonuç Tipi : </strong> <input type="radio"
-							name="outputtype" value="Json">Json <input type="radio"
-							name="outputtype" value="Vites" checked>Vites <input
-							type="radio" name="outputtype" value="Brat">Brat<br>
-							<br></td>
+<!-- 						<td><strong>Sonuç Tipi : </strong> <input type="radio" -->
+<!-- 							name="outputtype" value="Json">Json <input type="radio" -->
+<!-- 							name="outputtype" value="Vites" checked>Vites <input -->
+<!-- 							type="radio" name="outputtype" value="Brat">Brat<br> -->
+<!-- 							<br></td> -->
 					</tr>
 					<tr>
 						<td>

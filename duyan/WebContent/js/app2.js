@@ -1,11 +1,12 @@
-var app = angular.module("MyApp", ["ngResource"]);
-
-function MyCtrl($scope, $resource) {
-  $scope.twitterAPI = $resource("http://localhost:8080/duyan/DuyanServlet?content="+$scope.searchTerm+"&outputtype=Json",
-    { callback: "JSON_CALLBACK" },
-    { get: { method: "JSONP" }});
-
-  $scope.search = function() {
-    $scope.searchResult = $scope.twitterAPI.get({ q: $scope.searchTerm });
-  };
-}
+angular
+		.module('angularjs-starter', [ 'ngSanitize' ])
+		.controller(
+				'x',
+				function($scope, $sce) {
+					$scope.html = '<p style="color:blue">Hey!! Come and '
+							+ '<em style="color:Red" onmouseover="this.textContent=\'Click\'">Mouse Hover</em>\n'
+							+ 'Over Me</p>';
+					$scope.withoutSanitize = function() {
+						return $sce.trustAsHtml($scope.html);
+					};
+				});

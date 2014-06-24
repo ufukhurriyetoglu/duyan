@@ -3,6 +3,7 @@ package tr.edu.ege.seagent.servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -57,16 +58,18 @@ public class DuyanServlet extends HttpServlet {
 		response.setCharacterEncoding(FileUtils.encodingUTF8);
 		String content = request.getParameter("content");
 		response.setCharacterEncoding(FileUtils.encodingUTF8);
+		response.setContentType("text/javascript; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
-		
+
 		ServletContext perContext = getServletContext();
 		ServletContext locContext = getServletContext();
 		ServletContext orgContext = getServletContext();
-		String perFullPath = perContext.getRealPath("/WEB-INF/files/dbpediaNames.csv");
-		String locFullPath = locContext.getRealPath("/WEB-INF/files/dbpediaLocations.csv");
-		String orgFullPath = orgContext.getRealPath("/WEB-INF/files/DbpediaOrg.csv");
-		
+		String perFullPath = perContext
+				.getRealPath("/WEB-INF/files/dbpediaNames.csv");
+		String locFullPath = locContext
+				.getRealPath("/WEB-INF/files/dbpediaLocations.csv");
+		String orgFullPath = orgContext
+				.getRealPath("/WEB-INF/files/DbpediaOrg.csv");
 
 		// URL url2 = new URL(DBPEDIA_CNTRL_URL);
 		// HttpURLConnection urlh = (HttpURLConnection) url2.openConnection();
@@ -81,56 +84,59 @@ public class DuyanServlet extends HttpServlet {
 				out.println(hcp.getEmptyContent());
 			} else {
 				String resultContent = "";
+				// try {
+				// resultContent =
+				// hcp.colorifyNamedEntityStrategy(content,perFullPath,locFullPath,orgFullPath);
+				// } catch (SAXException | TransformerException
+				// | ParserConfigurationException e1) {
+				// // TODO Auto-generated catch block
+				// e1.printStackTrace();
+				// }
+				//
+				// if (resultContent.equals("")) {
+				// out.println(hcp.getNullContent());
+				// } else {
+
+				// String selected = request.getParameter("outputtype");
+				// if (selected.equals("Json")) {
+
 				try {
-					resultContent = hcp.colorifyNamedEntityStrategy(content,perFullPath,locFullPath,orgFullPath);
+					ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+							.regexCapitalLetterLookupPipeline(content,
+									perFullPath, locFullPath, orgFullPath);
+					resultContent = new JSONGenerator().createJsonRegex(
+							content, regexCapitalLetterLookupPipeline);
+					out.println(resultContent);
 				} catch (SAXException | TransformerException
-						| ParserConfigurationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+						| ParserConfigurationException | URISyntaxException e) {
+					e.printStackTrace();
 				}
 
-				if (resultContent.equals("")) {
-					out.println(hcp.getNullContent());
-				} else {
-
-					String selected = request.getParameter("outputtype");
-					if (selected.equals("Json")) {
-						
-						try {
-							ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
-							.regexCapitalLetterLookupPipeline(content, perFullPath,
-									locFullPath, orgFullPath);
-							String createJsonRegex = new JSONGenerator().createJsonRegex(content,regexCapitalLetterLookupPipeline);
-							out.println(hcp
-									.getJsonContent(createJsonRegex));
-						} catch (SAXException | TransformerException
-								| ParserConfigurationException e) {
-							e.printStackTrace();
-						}
-						
-						// String jsonResult = new TextAnalyser()
-						// .analyzeText(content);
-						// jsonResult = new CapitalLetterTask()
-						// .perform(content);
-//						Entity entityJson = new CapitalLetterCompositeStrategy()
-//								.doOperation(new Entity(content));
-//						out.println(hcp
-//								.getJsonContent(new JsonStrategyGenerator()
-//										.generateJson(entityJson)));
-//						out.println(hcp.getJsonContent(resultContent));
-					} else if (selected.equals("Vites")) {
-						
-				out.println(hcp
-						.getVitesContent(resultContent));
-						
-					} else { // brat GUI solution
-						Entity entityJson = new CapitalLetterCompositeStrategy()
-								.doOperation(new Entity(content));
-						out.println(hcp
-								.getBratContent(new JsonStrategyGenerator()
-										.generateJson(entityJson)));
-					}
-				}
+				// String jsonResult = new TextAnalyser()
+				// .analyzeText(content);
+				// jsonResult = new CapitalLetterTask()
+				// .perform(content);
+				// Entity entityJson = new CapitalLetterCompositeStrategy()
+				// .doOperation(new Entity(content));
+				// out.println(hcp
+				// .getJsonContent(new JsonStrategyGenerator()
+				// .generateJson(entityJson)));
+				// out.println(hcp.getJsonContent(resultContent));
+				// } else if (selected.equals("Vites")) {
+				//
+				// out.println(hcp
+				// .getVitesContent(resultContent));
+				//
+				// } else { // brat GUI solution
+				// Entity entityJson = new CapitalLetterCompositeStrategy()
+				// .doOperation(new Entity(content));
+				// out.println(hcp
+				// .getBratContent(new JsonStrategyGenerator()
+				// .generateJson(entityJson)));
+				// }
+				// }
+				// }
+				// }
 			}
 		}
 	}

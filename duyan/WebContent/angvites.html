@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<meta charset="utf-8" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+<script src="http://code.angularjs.org/1.0.3/angular-resource.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-sanitize.js"></script>
+<script type="text/javascript" src="js/geo.js"></script>
+<script type="text/javascript" src="js/select.js"></script>
+<!-- Bootstrap -->
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link
+	href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css"
+	rel="stylesheet" />
+<link href="css/selectstyle.css" rel="stylesheet" />
+<title>Vites Angular</title>
+<script>
+	function selectedSentence() {
+		var mylist = document.getElementById("name");
+		document.getElementById("content").value = mylist.options[mylist.selectedIndex].text;
+	}
+</script>
+</head>
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.xhtml">DUYAN</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="index.xhtml">Ana Sayfa</a></li>
+					<li><a href="#about">Hakkında</a></li>
+					<li><a href="#contact">İletişim</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Begin page content -->
+	<div class="container">
+		<div class="page-header">
+			<h1>
+				Vites : Türkçe Varlık İsmi Tanımlama Sistemi <span
+					class="label label-success">Yeni</span>
+			</h1>
+			<ul class="breadcrumb">
+				<li><a href="index.xhtml">Duyan</a> <span class="divider"></span></li>
+				<li class="active">Vites</li>
+			</ul>
+		</div>
+		<div ng-app="demo" ng-controller="DemoController">
+			<strong>Örnek Cümle :</strong> <select class="btn btn-danger"
+				id="peopleArraySel1" ng-model="peopleArrayValue1"
+				ng-options="person.sentence for person in peopleArray" id="name"
+				name="name" ng-change="selectAction()">
+			</select> <span class="caret"></span> <br>
+			<table>
+				<tr>
+					<td><br> <textarea class="form-control" rows="4"
+							cols="50" id="content" name="content"
+							placeholder="Cumle giriniz..." ng-model="query.content">{{peopleArrayValue1.sentence | json}}</textarea>
+						<br></td>
+				</tr>
+				<tr>
+					<td>
+						<button class="btn btn-large btn-primary" type="submit"
+							ng-click="performPostcodeLookup()">Onayla</button>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<hr>
+			<br>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">Varlık İsimleri Tanımlanan Cümle</h3>
+				</div>
+				<div class="panel-body">
+					<div ng-bind-html-unsafe="text"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<div class="container">
+			<p class="text-muted">
+				&#169; 2014 <a href="http://seagentdev.ege.edu.tr">Seagent Lab.</a>
+				ve <a href="http://www.galaksiya.com">Galaksiya</a>
+			</p>
+		</div>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</body>
+</html>
