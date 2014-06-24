@@ -9,8 +9,7 @@ public class CapitalLetterTaskTest {
 	@Test
 	public void capitalLetterTest() throws Exception {
 		String text = "MHP Genel Başkanı Devlet Bahçeli geldi.";
-//
-//		String dBahceli = "\"entity1\":[\"T1\",\"Person\", [ [ 18,32 ] ]]";
+		String dBahceli = "\"entity1\":[\"T1\",\"Person\", [ [ 18,32 ] ]]";
 //		String expectedJson = "{\"text\":\"" + text + "\",\"entities\":{"
 //				+ dBahceli + "}}";
 //
