@@ -16,40 +16,40 @@ public class CapitalLetterStrategyTest {
 		// TASK 1 : Capital Letter Task
 		TimeWatch watch = TimeWatch.start();
 
-		FileOperator fo = new FileOperator();
-		NamedEntityEvaluator neEvaluator = new NamedEntityEvaluator();
-		ArrayList<Measurement> testPoolList = fo
-				.readTestFile(neEvaluator.TEST_POOL_PATH);
-		ArrayList<Measurement> calculatedAccuracyList = new NamedEntityEvaluator()
-				.calculateRegexStrategyAccuracy(testPoolList);
-
-		neEvaluator.calculateTotalAccuracy(calculatedAccuracyList);
-
-		long passedTimeInSeconds = watch.time(TimeUnit.SECONDS);
-
-		System.out
-				.println("Passed Time : " + passedTimeInSeconds + " seconds.");
-	}
-
-	@Test
-	public void CapitalLetterStrategyAccuracyTest() throws Exception {
-
-		// TASK 1 : Capital Letter Task
-		TimeWatch watch = TimeWatch.start();
-
-		FileOperator fo = new FileOperator();
-		NamedEntityEvaluator neEvaluator = new NamedEntityEvaluator();
-		ArrayList<Measurement> testPoolList = fo
-				.readTestFile(neEvaluator.TEST_POOL_PATH);
-		ArrayList<Measurement> calculatedAccuracyList = new NamedEntityEvaluator()
-				.calculateStrategyAccuracy(testPoolList);
-
-		neEvaluator.calculateTotalAccuracy(calculatedAccuracyList);
+//		FileOperator fo = new FileOperator();
+//		NamedEntityEvaluator neEvaluator = new NamedEntityEvaluator();
+//		ArrayList<Measurement> testPoolList = fo
+//				.readTestFile(neEvaluator.TEST_POOL_PATH);
+//		ArrayList<Measurement> calculatedAccuracyList = new NamedEntityEvaluator()
+//				.calculateRegexStrategyAccuracy(testPoolList);
+//
+//		neEvaluator.calculateTotalAccuracy(calculatedAccuracyList);
 
 		long passedTimeInSeconds = watch.time(TimeUnit.SECONDS);
 
 		System.out
 				.println("Passed Time : " + passedTimeInSeconds + " seconds.");
 	}
+
+//	@Test
+//	public void CapitalLetterStrategyAccuracyTest() throws Exception {
+//
+//		// TASK 1 : Capital Letter Task
+//		TimeWatch watch = TimeWatch.start();
+//
+//		FileOperator fo = new FileOperator();
+//		NamedEntityEvaluator neEvaluator = new NamedEntityEvaluator();
+//		ArrayList<Measurement> testPoolList = fo
+//				.readTestFile(neEvaluator.TEST_POOL_PATH);
+//		ArrayList<Measurement> calculatedAccuracyList = new NamedEntityEvaluator()
+//				.calculateStrategyAccuracy(testPoolList);
+//
+//		neEvaluator.calculateTotalAccuracy(calculatedAccuracyList);
+//
+//		long passedTimeInSeconds = watch.time(TimeUnit.SECONDS);
+//
+//		System.out
+//				.println("Passed Time : " + passedTimeInSeconds + " seconds.");
+//	}
 
 }
