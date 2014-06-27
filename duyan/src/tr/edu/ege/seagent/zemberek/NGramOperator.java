@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.TreeSet;
 
+import tr.edu.ege.seagent.similarity.JaroWinkler;
+
 public class NGramOperator {
 	public void showNgramList(ArrayList<String> properNounList, int ngramSize) {
 		long startTime = System.currentTimeMillis();
@@ -30,7 +32,6 @@ public class NGramOperator {
 	    for (ListIterator<String> it = sentence.listIterator(); it.hasNext();) {
 	        String word = (String) it.next();
 
-	        //1- add the word itself
 	        sb = new StringBuilder(word);
 	        ngrams.add(word);
 	        ngramSize=1;

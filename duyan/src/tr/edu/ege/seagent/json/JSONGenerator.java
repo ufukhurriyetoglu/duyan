@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 
 import tr.edu.ege.seagent.dbpedia.SemanticTag;
 import tr.edu.ege.seagent.entity.Entity;
+import tr.edu.ege.seagent.letter.LetterOperator;
 import tr.edu.ege.seagent.servlet.HtmlContentProvider;
 
 import com.google.gson.Gson;
@@ -93,7 +94,7 @@ public class JSONGenerator {
 
 //		String jsonString = obj.toJSONString();
 //		System.out.println(((JSONObject)((JSONArray)obj.get("entities")).get(0)).get("uri"));
-		System.out.println(jsonString);
+//		System.out.println(jsonString);
 
 		return jsonString;
 	}
@@ -213,6 +214,7 @@ public class JSONGenerator {
 
 		return entities;
 	}
+	
 
 	public ArrayList<JsonEntity> acquireEntitiesRegex(String content,
 			TreeSet<SemanticTag> resolveNamedEntityLookupDbpedia) {
@@ -224,8 +226,19 @@ public class JSONGenerator {
 		while (iterator.hasNext()) {
 			SemanticTag semanticTag = (SemanticTag) iterator.next();
 
-			String namedEntity = semanticTag.getName().replaceAll("\"", "");
-
+			// getName i getOldName yaptım
+			String namedEntityBef = semanticTag.getOldName().replaceAll("\"", "");
+			String namedEntity = "";
+			if(content.contains(namedEntityBef)){
+				namedEntity = namedEntityBef;
+			}else{
+				namedEntity = new LetterOperator()
+				.convertAllUpperCase(namedEntityBef);
+				content = content.replace(namedEntity, namedEntityBef);
+				namedEntity = namedEntityBef;
+			}
+				
+			
 			// find all occurrences forward
 			for (int beginOffset = -1; (beginOffset = content.indexOf(
 					namedEntity, beginOffset + 1)) != -1;) {

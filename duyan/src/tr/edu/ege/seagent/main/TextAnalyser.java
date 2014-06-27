@@ -1,6 +1,7 @@
 package tr.edu.ege.seagent.main;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,9 +17,11 @@ import tr.edu.ege.seagent.dbpedia.DBpediaDisambiguator;
 import tr.edu.ege.seagent.dbpedia.DbpediaSearcher;
 import tr.edu.ege.seagent.dbpedia.DbpediaSearcherInFile;
 import tr.edu.ege.seagent.dbpedia.SemanticTag;
+import tr.edu.ege.seagent.deasciifier.TurkishDeasciifier;
 import tr.edu.ege.seagent.entity.Entity;
 import tr.edu.ege.seagent.json.JsonEntity;
 import tr.edu.ege.seagent.json.JSONGenerator;
+import tr.edu.ege.seagent.letter.LetterOperator;
 import tr.edu.ege.seagent.lookup.DbpediaLookup;
 import tr.edu.ege.seagent.politics.OntoGenerator;
 import tr.edu.ege.seagent.regex.RegexOperator;
@@ -30,6 +33,87 @@ import zemberek.morphology.apps.TurkishMorphParser;
 import zemberek.morphology.apps.TurkishSentenceParser;
 
 public class TextAnalyser {
+
+	public ArrayList<JsonEntity> regexCapitalLetterLookupPipeline(
+			String content, String perFilePath, String locFilePath,
+			String orgFilePath) throws IOException, SAXException,
+			TransformerException, ParserConfigurationException {
+
+		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
+
+		RegexOperator rgOperator = new RegexOperator();
+
+		StringBuffer sb = rgOperator.eliminateLowerCaseWords(content,
+				rgOperator.DELIMITER);
+		TreeSet<String> candidateNerList = rgOperator
+				.obtainCandidateNamedEntities(sb, rgOperator.DELIMITER);
+
+		for (String string : candidateNerList) {
+			System.out.println("cand :[" + string + "]");
+		}
+
+		TreeSet<SemanticTag> sTagList = new TreeSet<SemanticTag>();
+		// TODO BURADA SEMANTIC TAG LIST SIKINTILI
+
+		TreeSet<SemanticTag> resolveNamedEntityListLookupDbpedia = new OntoGenerator()
+				.searchInOnto(sTagList, candidateNerList, perFilePath,
+						locFilePath, orgFilePath);
+
+		if (!resolveNamedEntityListLookupDbpedia.isEmpty()) {
+			// DBpedia da çözümlenebilen CandidateNerList elemanlarını sil
+			for (SemanticTag dbpedia : resolveNamedEntityListLookupDbpedia) {
+				String obtainedNer = dbpedia.getName().replace("\"", "");
+				
+				// Hepsi Büyük harfle olan bir kelime geldiyse
+				if (obtainedNer.length() > 3
+						&& Character.isUpperCase(obtainedNer.charAt(4))) {
+					String oldStr = new LetterOperator().convertAllUpperCase(
+							obtainedNer);
+					System.out.println("[" + oldStr + "]-[" + dbpedia.getName()
+							+ "]");
+					candidateNerList.remove(new String(obtainedNer));
+				}
+				
+				// Jaro-Winkler e göre benzerliği bulunduysa
+				candidateNerList.remove(new String(obtainedNer));
+			}
+			regexResolvedEntityList(candidateNerList,
+					resolveNamedEntityListLookupDbpedia, perFilePath,
+					locFilePath, orgFilePath);
+			entities = new JSONGenerator().acquireEntitiesRegex(content,
+					resolveNamedEntityListLookupDbpedia);
+		} else {
+
+			TreeSet<SemanticTag> resolveNamedEntityLookupDbpedia = new TreeSet<SemanticTag>();
+			regexResolvedEntityList(candidateNerList,
+					resolveNamedEntityLookupDbpedia, perFilePath, locFilePath,
+					orgFilePath);
+			entities = new JSONGenerator().acquireEntitiesRegex(content,
+					resolveNamedEntityLookupDbpedia);
+		}
+		return entities;
+
+	}
+
+	public void regexResolvedEntityList(TreeSet<String> candidateNerList,
+			TreeSet<SemanticTag> resolveNamedEntityListLookupDbpedia,
+			String perFilePath, String locFilePath, String orgFilePath)
+			throws IOException, SAXException, TransformerException,
+			ParserConfigurationException {
+		TreeSet<SemanticTag> sTagList = new TreeSet<SemanticTag>();
+		for (String word : candidateNerList) {
+			String[] splitedWords = word.split(" ");
+			TreeSet<String> ngramList = new NGramOperator().generateNgramsUpto(
+					word, splitedWords.length);
+
+			TreeSet<SemanticTag> tempResolveNamedEntityLookup = new OntoGenerator()
+					.searchInOnto(sTagList, ngramList, perFilePath,
+							locFilePath, orgFilePath);
+			if (!tempResolveNamedEntityLookup.isEmpty())
+				resolveNamedEntityListLookupDbpedia
+						.addAll(tempResolveNamedEntityLookup);
+		}
+	}
 
 	public Entity extractNamedEntitySet(Entity entityContent) {
 		TurkishMorphParser morphParser;
@@ -76,9 +160,6 @@ public class TextAnalyser {
 		ArrayList<SemanticTag> dbpediaList = new DbpediaSearcher()
 				.resolveInDbpedia(nerList);
 
-		// ArrayList<Dbpedia> dbpediaList = new DbpediaSearcherInFile()
-		// .resolveInDbpedia(nerList);
-
 		if (nerList.size() == dbpediaList.size()) {
 			// if it is accomplished by %100
 			ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
@@ -89,8 +170,6 @@ public class TextAnalyser {
 				for (int beginOffset = -1; (beginOffset = content.indexOf(
 						namedEntity, beginOffset + 1)) != -1;) {
 					int endOffset = namedEntity.length() + beginOffset;
-					// System.out.println("basi : " + beginOffset + " sonu : "
-					// + endOffset);
 
 					entities.add(new JsonEntity("T" + cnt, dbpediaList.get(
 							cnt - 1).getType(), beginOffset, endOffset));
@@ -155,75 +234,6 @@ public class TextAnalyser {
 
 		return jsonResult;
 
-	}
-
-	public ArrayList<JsonEntity> regexCapitalLetterLookupPipeline(String content,
-			String perFilePath, String locFilePath, String orgFilePath)
-			throws IOException, SAXException, TransformerException,
-			ParserConfigurationException {
-
-		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
-
-		RegexOperator rgOperator = new RegexOperator();
-		StringBuffer sb = rgOperator.eliminateLowerCaseWords(content,
-				rgOperator.DELIMITER);
-		TreeSet<String> candidateNerList = rgOperator
-				.obtainCandidateNamedEntities(sb, rgOperator.DELIMITER);
-
-//		for (String string : candidateNerList) {
-//			System.out.println("cand " + string);
-//		}
-		
-		// rgOperator.showListMembers(candidateNerList);
-		// ArrayList<SemanticTag> resolveNamedEntityListLookupDbpedia = new
-		// DbpediaLookup()
-		// .lookupDbpedia(candidateNerList);
-
-		TreeSet<SemanticTag> resolveNamedEntityListLookupDbpedia = new OntoGenerator().searchInOnto(candidateNerList,perFilePath,locFilePath,orgFilePath);
-		// ArrayList<SemanticTag> resolveNamedEntityListLookupDbpedia = new
-		// DbpediaSearcherInFile()
-		// .resolveInDbpedia(candidateNerList);
-
-		if (!resolveNamedEntityListLookupDbpedia.isEmpty()) {
-			// DBpedia da çözümlenebilen CandidateNerList elemanlarını sil
-			for (SemanticTag dbpedia : resolveNamedEntityListLookupDbpedia) {
-				candidateNerList.remove(new String(dbpedia.getName()));
-			}
-			regexResolvedEntityList(candidateNerList,
-					resolveNamedEntityListLookupDbpedia,perFilePath,locFilePath,orgFilePath);
-			entities = new JSONGenerator().acquireEntitiesRegex(content,
-					resolveNamedEntityListLookupDbpedia);
-		} else {
-
-			TreeSet<SemanticTag> resolveNamedEntityLookupDbpedia = new TreeSet<SemanticTag>();
-			regexResolvedEntityList(candidateNerList,
-					resolveNamedEntityLookupDbpedia,perFilePath,locFilePath,orgFilePath);
-			entities = new JSONGenerator().acquireEntitiesRegex(content,
-					resolveNamedEntityLookupDbpedia);
-		}
-		return entities;
-
-	}
-
-	public void regexResolvedEntityList(TreeSet<String> candidateNerList,
-			TreeSet<SemanticTag> resolveNamedEntityListLookupDbpedia,String perFilePath, String locFilePath, String orgFilePath)
-			throws IOException, SAXException, TransformerException,
-			ParserConfigurationException {
-		for (String word : candidateNerList) {
-			String[] splitedWords = word.split(" ");
-			TreeSet<String> ngramList = new NGramOperator().generateNgramsUpto(
-					word, splitedWords.length);
-
-			// ArrayList<SemanticTag> tempResolveNamedEntityLookup = new
-			// DbpediaLookup()
-			// .lookupDbpedia(ngramList);
-			TreeSet<SemanticTag> tempResolveNamedEntityLookup = new OntoGenerator().searchInOnto(ngramList,perFilePath,locFilePath,orgFilePath);
-//			ArrayList<SemanticTag> tempResolveNamedEntityLookup = new DbpediaSearcherInFile()
-//					.resolveInDbpedia(ngramList);
-			if(!tempResolveNamedEntityLookup.isEmpty())
-			resolveNamedEntityListLookupDbpedia
-					.addAll(tempResolveNamedEntityLookup);
-		}
 	}
 
 	private ArrayList<Entity> getCapitalLetterLookupPipeline(
@@ -371,32 +381,53 @@ public class TextAnalyser {
 		return resultContent;
 	}
 
-	public static void main(String[] args) throws IOException, ParseException {
+	public static void main(String[] args) throws IOException, ParseException,
+			URISyntaxException, SAXException, TransformerException,
+			ParserConfigurationException {
+		String perFullPath = "files/dbpediaNames.csv";
+		String locFullPath = "files/dbpediaLocations.csv";
+		String orgFullPath = "files/DbpediaOrg.csv";
+
+		String deasciiFullPath = "files/turkishPatternTable";
+
+		String content = "CHP Genel Başkanı Kml Klçdrglu Istnbl'dan Izmr'e geldi.";
+		// String content = "Kml Klçdrglu";
+		content = new TurkishDeasciifier().deasciifySentence(content,
+				deasciiFullPath);
+
+		ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+				.regexCapitalLetterLookupPipeline(content, perFullPath,
+						locFullPath, orgFullPath);
+		String resultContent = new JSONGenerator().createJsonRegex(content,
+				regexCapitalLetterLookupPipeline);
+		System.out.println(resultContent);
+
 		// String content =
 		// "Mustafa Kemal Atatürk ve İsmet İnönü, Türkiye Büyük Millet Meclisi açılışı için İstanbul'dan gelerek Ankara'da kaldılar.";
 		// new TextAnalyser().demonstrateHTMLContent(content);
 
-		String content = "Yapılan düğünde Arda Turan hazır bulundu.";
-
-		// // test named entities
-		ArrayList<String> nerList = new TextAnalyser()
-				.extractNamedEntity(content);
-		System.out.println("The size of Named Entity List : " + nerList.size());
-		for (String str : nerList) {
-			System.out.println(str);
-		}
-
-		System.out.println(new TextAnalyser().demonstrateHTMLContent(content));
-
-		// problem bundan sonra başlar "Mustafa Kemal Atatürk İzmir" dbpedia
-		// search
-		// için n-gram uygulaması
-		ArrayList<SemanticTag> dbpediaList = new DbpediaSearcherInFile()
-				.resolveInDbpedia(nerList);
-		for (SemanticTag dbpedia : dbpediaList) {
-			System.out.println(dbpedia.getUri());
-		}
+		// String content = "Yapılan düğünde Arda Turan hazır bulundu.";
+		//
+		// // // test named entities
+		// ArrayList<String> nerList = new TextAnalyser()
+		// .extractNamedEntity(content);
+		// System.out.println("The size of Named Entity List : " +
+		// nerList.size());
+		// for (String str : nerList) {
+		// System.out.println(str);
+		// }
+		//
+		// System.out.println(new
+		// TextAnalyser().demonstrateHTMLContent(content));
+		//
+		// // problem bundan sonra başlar "Mustafa Kemal Atatürk İzmir" dbpedia
+		// // search
+		// // için n-gram uygulaması
+		// ArrayList<SemanticTag> dbpediaList = new DbpediaSearcherInFile()
+		// .resolveInDbpedia(nerList);
+		// for (SemanticTag dbpedia : dbpediaList) {
+		// System.out.println(dbpedia.getUri());
+		// }
 
 	}
-
 }

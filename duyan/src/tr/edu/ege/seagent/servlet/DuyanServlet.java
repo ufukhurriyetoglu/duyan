@@ -22,6 +22,7 @@ import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
 import tr.edu.ege.seagent.dbpedia.SemanticTag;
+import tr.edu.ege.seagent.deasciifier.TurkishDeasciifier;
 import tr.edu.ege.seagent.entity.Entity;
 import tr.edu.ege.seagent.fileio.FileOperator;
 import tr.edu.ege.seagent.json.JSONGenerator;
@@ -71,6 +72,9 @@ public class DuyanServlet extends HttpServlet {
 		String orgFullPath = orgContext
 				.getRealPath("/WEB-INF/files/DbpediaOrg.csv");
 
+		String deasciiFullPath = orgContext
+				.getRealPath("/WEB-INF/files/turkishPatternTable");
+
 		// URL url2 = new URL(DBPEDIA_CNTRL_URL);
 		// HttpURLConnection urlh = (HttpURLConnection) url2.openConnection();
 		// int status = urlh.getResponseCode();
@@ -84,23 +88,13 @@ public class DuyanServlet extends HttpServlet {
 				out.println(hcp.getEmptyContent());
 			} else {
 				String resultContent = "";
-				// try {
-				// resultContent =
-				// hcp.colorifyNamedEntityStrategy(content,perFullPath,locFullPath,orgFullPath);
-				// } catch (SAXException | TransformerException
-				// | ParserConfigurationException e1) {
-				// // TODO Auto-generated catch block
-				// e1.printStackTrace();
-				// }
-				//
-				// if (resultContent.equals("")) {
-				// out.println(hcp.getNullContent());
-				// } else {
-
-				// String selected = request.getParameter("outputtype");
-				// if (selected.equals("Json")) {
 
 				try {
+
+					// Turkish Deasciifier
+					content = new TurkishDeasciifier().deasciifySentence(
+							content, deasciiFullPath);
+
 					ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
 							.regexCapitalLetterLookupPipeline(content,
 									perFullPath, locFullPath, orgFullPath);
@@ -112,31 +106,6 @@ public class DuyanServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 
-				// String jsonResult = new TextAnalyser()
-				// .analyzeText(content);
-				// jsonResult = new CapitalLetterTask()
-				// .perform(content);
-				// Entity entityJson = new CapitalLetterCompositeStrategy()
-				// .doOperation(new Entity(content));
-				// out.println(hcp
-				// .getJsonContent(new JsonStrategyGenerator()
-				// .generateJson(entityJson)));
-				// out.println(hcp.getJsonContent(resultContent));
-				// } else if (selected.equals("Vites")) {
-				//
-				// out.println(hcp
-				// .getVitesContent(resultContent));
-				//
-				// } else { // brat GUI solution
-				// Entity entityJson = new CapitalLetterCompositeStrategy()
-				// .doOperation(new Entity(content));
-				// out.println(hcp
-				// .getBratContent(new JsonStrategyGenerator()
-				// .generateJson(entityJson)));
-				// }
-				// }
-				// }
-				// }
 			}
 		}
 	}

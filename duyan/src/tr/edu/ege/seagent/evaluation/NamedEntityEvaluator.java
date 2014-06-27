@@ -36,8 +36,56 @@ public class NamedEntityEvaluator {
 			totalAccuracy += measurement.getAccuracy();
 			cnt++;
 		}
-		log.info("Total Accuracy : " + df.format(totalAccuracy / cnt)
+		System.out.println("Total Accuracy : " + df.format(totalAccuracy / cnt)
 				+ " -- Percentage : %" + df.format(totalAccuracy / cnt * 100));
+	}
+	
+	public ArrayList<Measurement> calculateRegexStrategyAccuracy(
+			ArrayList<Measurement> testPoolList) throws IOException,
+			SAXException, TransformerException, ParserConfigurationException {
+
+		String perFullPath = "files/dbpediaNames.csv";
+		String locFullPath = "files/dbpediaLocations.csv";
+		String orgFullPath ="files/DbpediaOrg.csv";
+		
+		ArrayList<Measurement> measurementList = new ArrayList<Measurement>();
+		for (Measurement measurement : testPoolList) {
+			TimeWatch watch = TimeWatch.start();
+
+			ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+			.regexCapitalLetterLookupPipeline(measurement.getContent(),perFullPath, locFullPath, orgFullPath);
+			
+//			Entity analyzeTextList = new CapitalLetterCompositeStrategy()
+//					.doOperation(new Entity(measurement.getContent()));
+			
+			String[] trueList = measurement.getTrueNamedEntityList();
+
+			int equalNer = 0;
+			for (int i = 0; i < trueList.length; i++) {
+				for (JsonEntity entity : regexCapitalLetterLookupPipeline) {
+					String foundNamedEntity = entity.getName();
+					if (trueList[i].equals(foundNamedEntity)) {
+						log.info(" Found : " + trueList[i] + " = "
+								+ foundNamedEntity);
+						equalNer++;
+						break;
+					}
+				}
+			}
+
+			double accuracy = equalNer / (double) trueList.length;
+			double accuracyPercentage = accuracy * 100;
+
+			measurementList.add(new Measurement(accuracy, accuracyPercentage));
+
+			long passedTimeInSeconds = watch.time(TimeUnit.SECONDS);
+			System.out.println("Time : " + passedTimeInSeconds + " seconds. Accuracy : %"
+					+ df.format(accuracyPercentage));
+			log.info("Time : " + passedTimeInSeconds + " seconds. Accuracy : %"
+					+ df.format(accuracyPercentage));
+		}
+
+		return measurementList;
 	}
 
 	public ArrayList<Measurement> calculateStrategyAccuracy(

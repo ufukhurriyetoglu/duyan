@@ -3,8 +3,16 @@ package tr.edu.ege.seagent.dbpedia;
 
 public class SemanticTag implements Comparable<SemanticTag>{
 	private String name;
+	private String oldName; // JARO_WINKLER new value, old value 
 	private String uri;
 	private String type;
+	
+	public SemanticTag(String name, String oldName, String type, String uri) {
+		this.name = name;
+		this.setOldName(oldName);
+		this.type = type;
+		this.uri = uri;
+	}
 
 	public SemanticTag(String n, String t, String uri) {
 		this.name = n;
@@ -57,6 +65,14 @@ public class SemanticTag implements Comparable<SemanticTag>{
 	@Override
 	public int compareTo(SemanticTag o) {
 		return this.name.compareTo(o.name);
+	}
+
+	public String getOldName() {
+		return oldName;
+	}
+
+	public void setOldName(String oldName) {
+		this.oldName = oldName;
 	}
 
 }
