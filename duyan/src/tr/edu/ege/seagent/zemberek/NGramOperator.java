@@ -57,7 +57,9 @@ public class NGramOperator {
 	public TreeSet<String> createNGramArray(String[] splitedWords, int maxGramSize) {
 		TreeSet<String> ngrams = new TreeSet<String>();
 		List<String> capitalizedProperNounList = new ArrayList<String>();
-
+		
+		
+		// TODO hepsi küçük harfliyse
 		for (int i = 0; i < splitedWords.length; i++) {
 			String capitalizedNGram = splitedWords[i].substring(0, 1)
 					.toUpperCase() + splitedWords[i].substring(1);

@@ -410,7 +410,12 @@ function DemoController($scope, $http) {
 			{
 				name : "  İçerik 102  ",
 				sentence : "CHP Genel Başkanı Kemal Kılıçdaroğlu Istanbl'dan Izmr'e geldi."
-			} ];
+			},
+			{
+				name : "  İçerik 103  ",
+				sentence : "Atatürk yılında İstanbul'dan ayrılarak Samsun'a çıktı."
+			}
+			];
 
 	$scope.textArrayValue1 = $scope.textArray[0]; // first sentence
 

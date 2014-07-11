@@ -1,18 +1,23 @@
 package tr.edu.ege.seagent.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
+import tr.edu.ege.seagent.deasciifier.TurkishDeasciifier;
 import tr.edu.ege.seagent.entity.Entity;
+import tr.edu.ege.seagent.json.JSONGenerator;
 import tr.edu.ege.seagent.json.JsonEntity;
+import tr.edu.ege.seagent.lowercase.LuceneOperator;
 import tr.edu.ege.seagent.main.TextAnalyser;
 import tr.edu.ege.seagent.strategy.CapitalLetterCompositeStrategy;
-import tr.edu.ege.seagent.task.CapitalLetterTask;
 
 import com.hp.hpl.jena.util.FileUtils;
 
@@ -21,6 +26,47 @@ public class HtmlContentProvider {
 	private static final String EMPTY_TEXT_MESSAGE = "Lütfen önce metin giriniz!";
 	private static final String NULL_TEXT_MESSAGE = "Vites varlık ismi tanımlayamadan boş sonuç gönderdi!";
 	private static final String DBPEDIA_TEXT_MESSAGE = "DBpedia geçici olarak hizmet dışıdır.";
+
+	public void obtainLuceneTaskContent(String content, PrintWriter out,
+			String deasciiFullPath, String index_directory) {
+		String resultContent = "";
+
+		try {
+			// Turkish Deasciifier
+			content = new TurkishDeasciifier().deasciifySentence(content,
+					deasciiFullPath);
+
+			HashSet<JsonEntity> luceneLookupPipeline = new LuceneOperator()
+					.searchIndex(content, index_directory);
+			resultContent = new JSONGenerator().createJsonRegex(content,
+					luceneLookupPipeline);
+			out.println(resultContent);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void obtainRegexTaskContent(String content, PrintWriter out,
+			String perFullPath, String locFullPath, String orgFullPath,
+			String deasciiFullPath) {
+		String resultContent = "";
+
+		try {
+			// Turkish Deasciifier
+			content = new TurkishDeasciifier().deasciifySentence(content,
+					deasciiFullPath);
+
+			ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+					.regexCapitalLetterLookupPipeline(content, perFullPath,
+							locFullPath, orgFullPath);
+//			resultContent = new JSONGenerator().createJsonRegex(content,
+//					regexCapitalLetterLookupPipeline);
+			out.println(resultContent);
+		} catch (SAXException | TransformerException
+				| ParserConfigurationException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public String htmlHeadCode = "<html> \n "
 			+ " <head> "
@@ -87,14 +133,6 @@ public class HtmlContentProvider {
 				+ "</body></html>" + "";
 	}
 
-	public String getJsonContent(String jsonResult) {
-		// return htmlHeadCode + title + "<hr/>" + "</head> \n" + "<body> \n"
-		// + jsonResult + "</body> \n" + "</html>";
-		// aşağıdaki parantezler olmazsa angularjs çalışmıyor...
-//		return "[" + jsonResult + "]";
-		return jsonResult;
-	}
-
 	public String getNullContent() {
 		return htmlHeadCode + title + "<hr/>" + "</head> \n" + "<body> \n"
 				+ "<p><font color=\"red\"><b>" + NULL_TEXT_MESSAGE
@@ -111,11 +149,6 @@ public class HtmlContentProvider {
 			String perFilePath, String locFilePath, String orgFilePath)
 			throws IOException, SAXException, TransformerException,
 			ParserConfigurationException {
-		// Entity entityJson = new CapitalLetterCompositeStrategy()
-		// .doOperation(new Entity(content));
-
-		// ArrayList<JsonEntity> analyzeTextList =
-		// entityJson.getEntityJsonList();
 		ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
 				.regexCapitalLetterLookupPipeline(content, perFilePath,
 						locFilePath, orgFilePath);
@@ -181,14 +214,14 @@ public class HtmlContentProvider {
 	public String identifyBackgroundColor(String type) {
 		String color = "";
 		if (type.equals("Person"))
-//			color = "#9CC2E6";
+			// color = "#9CC2E6";
 			color = "btn btn-warning btn-xs active";
 		else if (type.equals("Organization"))
-//			color = "#C1E19E";
+			// color = "#C1E19E";
 			color = "btn btn-default btn-xs active";
 		else
-//			color = "#DFB4B4";
-		color = "btn btn-info btn-xs active";
+			// color = "#DFB4B4";
+			color = "btn btn-info btn-xs active";
 		return color;
 	}
 

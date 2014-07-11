@@ -1,9 +1,9 @@
 package tr.edu.ege.seagent.json;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,86 +17,47 @@ import tr.edu.ege.seagent.entity.Entity;
 import tr.edu.ege.seagent.letter.LetterOperator;
 import tr.edu.ege.seagent.servlet.HtmlContentProvider;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class JSONGenerator {
 
-	// {
-	// "text":"Yapılan düğünde Arda Turan ve Hakan Şükür hazır bulundu.",
-	// "entities": [
-	// {
-	// "name":"entity2",
-	// "uri":"http://dbpedia.org/resource/Hakan_%C5%9E%C3%BCk%C3%BCr",
-	// "id":"T2",
-	// "type":"Person",
-	// "color":"#9CC2E6",
-	// "start":30,
-	// "end":41
-	// },
-	// {"name":"entity1",
-	// "uri":"http://dbpedia.org/resource/Arda_Turan",
-	// "id":"T1",
-	// "type":"Person",
-	// "color":"#9CC2E6",
-	// "start":16,
-	// "end":26
-	// }
-	// ]
-	// }
-
-	@SuppressWarnings("unchecked")
 	public String createJsonRegex(String sentence,
-			ArrayList<JsonEntity> entitiesList) throws URISyntaxException {
+			HashSet<JsonEntity> luceneLookupPipeline) throws URISyntaxException {
 
-//		JSONObject obj = new JSONObject();
-//		obj.put("text", sentence);
 		JsonEntityHeader jsonHeader = new JsonEntityHeader();
-		  jsonHeader.setText(sentence);
-		 
+		jsonHeader.setText(sentence);
 
 		String entityStr = "entity";
 
 		// creates child nodes
 		int i = 1;
-		
+
 		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
-//		JSONArray list = new JSONArray();
-		for (JsonEntity ent : entitiesList) {
-//			JSONObject entity = new JSONObject();
-			  JsonEntity entity = new JsonEntity();
+		for (JsonEntity ent : luceneLookupPipeline) {
+			JsonEntity entity = new JsonEntity();
 			entity.setName(entityStr + i);
-			String uriStr = ent.getDbpediaUri().substring(1, ent.getDbpediaUri().length()-1);
-//			String str = ent.getDbpediaUri().toString();
-			entity.setDbpediaUri(uriStr);
+			if (!ent.getDbpediaUri().isEmpty()) {
+				String uriStr = ent.getDbpediaUri().substring(1,
+						ent.getDbpediaUri().length() - 1);
+				entity.setDbpediaUri(uriStr);
+			}
 			entity.setT(ent.getT());
 			entity.setType(ent.getType());
-			String color = new HtmlContentProvider().identifyBackgroundColor(ent.getType());
+//			String color = new HtmlContentProvider()
+//					.identifyBackgroundColor(ent.getType());
+			String color = new HtmlContentProvider()
+			.identifyBackgroundColor(ent.getType());
+			
 			entity.setColor(color);
 			entity.setStart(ent.getStart());
 			entity.setEnd(ent.getEnd());
 			entities.add(entity);
-//			list.add(entity);
 			i++;
 		}
-//		obj.put("entities", list);
-		
-		  jsonHeader.setEntities(entities);
-		  
-		  Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		  //you don't need the GsonBuilder if you are just sending the 
-		  //data to another system or AJAX response, in that case just use
-		  //Gson gson = new Gson();
-		   
-		  // convert java object to JSON format, so easy
-		  String jsonString = gson.toJson(jsonHeader);
-		
+		jsonHeader.setEntities(entities);
 
-//		String jsonString = obj.toJSONString();
-//		System.out.println(((JSONObject)((JSONArray)obj.get("entities")).get(0)).get("uri"));
-//		System.out.println(jsonString);
-
-		return jsonString;
+		return new GsonBuilder().setPrettyPrinting().create()
+				.toJson(jsonHeader);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -166,25 +127,6 @@ public class JSONGenerator {
 			}
 		}
 
-		// for (Dbpedia dbpedia : disambiguatedDbpediaList) {
-		// String namedEntity = dbpedia.getName();
-		//
-		// // find all occurrences forward
-		// for (int beginOffset = -1; (beginOffset = content.indexOf(
-		// namedEntity, beginOffset + 1)) != -1;) {
-		// int endOffset = namedEntity.length() + beginOffset;
-		// // System.out.println("basi : " + beginOffset + " sonu : "
-		// // + endOffset);
-		//
-		// // TODO uri
-		// entities.add(new Entities(namedEntity, disambiguatedDbpediaList
-		// .get(cnt - 1).getUri(), "T" + cnt,
-		// disambiguatedDbpediaList.get(cnt - 1).getType(),
-		// beginOffset, endOffset));
-		// cnt++;
-		// }
-		// }
-
 		return entities;
 	}
 
@@ -200,10 +142,6 @@ public class JSONGenerator {
 			for (int beginOffset = -1; (beginOffset = content.indexOf(
 					namedEntity, beginOffset + 1)) != -1;) {
 				int endOffset = namedEntity.length() + beginOffset;
-				// System.out.println("basi : " + beginOffset + " sonu : "
-				// + endOffset);
-
-				// TODO uri
 				entities.add(new JsonEntity(namedEntity,
 						disambiguatedDbpediaList.get(cnt - 1).getUri(), "T"
 								+ cnt, disambiguatedDbpediaList.get(cnt - 1)
@@ -214,7 +152,6 @@ public class JSONGenerator {
 
 		return entities;
 	}
-	
 
 	public ArrayList<JsonEntity> acquireEntitiesRegex(String content,
 			TreeSet<SemanticTag> resolveNamedEntityLookupDbpedia) {
@@ -227,18 +164,18 @@ public class JSONGenerator {
 			SemanticTag semanticTag = (SemanticTag) iterator.next();
 
 			// getName i getOldName yaptım
-			String namedEntityBef = semanticTag.getOldName().replaceAll("\"", "");
+			String namedEntityBef = semanticTag.getOldName().replaceAll("\"",
+					"");
 			String namedEntity = "";
-			if(content.contains(namedEntityBef)){
+			if (content.contains(namedEntityBef)) {
 				namedEntity = namedEntityBef;
-			}else{
+			} else {
 				namedEntity = new LetterOperator()
-				.convertAllUpperCase(namedEntityBef);
+						.convertAllUpperCase(namedEntityBef);
 				content = content.replace(namedEntity, namedEntityBef);
 				namedEntity = namedEntityBef;
 			}
-				
-			
+
 			// find all occurrences forward
 			for (int beginOffset = -1; (beginOffset = content.indexOf(
 					namedEntity, beginOffset + 1)) != -1;) {
@@ -248,6 +185,46 @@ public class JSONGenerator {
 
 				// TODO uri
 				entities.add(new JsonEntity(namedEntity, semanticTag.getUri(),
+						"T" + cnt, semanticTag.getType(), beginOffset,
+						endOffset));
+			}
+			cnt++;
+		}
+
+		return entities;
+	}
+	
+	
+	public ArrayList<JsonEntity> acquireEntitiesLucene(String content,
+			ArrayList<JsonEntity> luceneLookupPipeline) {
+		ArrayList<JsonEntity> entities = new ArrayList<JsonEntity>();
+
+		int cnt = 1;
+		
+		for (JsonEntity semanticTag : entities) {
+			
+			// getName i getOldName yaptım
+			String namedEntityBef = semanticTag.getName().replaceAll("\"",
+					"");
+			String namedEntity = "";
+			if (content.contains(namedEntityBef)) {
+				namedEntity = namedEntityBef;
+			} else {
+				namedEntity = new LetterOperator()
+						.convertAllUpperCase(namedEntityBef);
+				content = content.replace(namedEntity, namedEntityBef);
+				namedEntity = namedEntityBef;
+			}
+
+			// find all occurrences forward
+			for (int beginOffset = -1; (beginOffset = content.indexOf(
+					namedEntity, beginOffset + 1)) != -1;) {
+				int endOffset = namedEntity.length() + beginOffset;
+				// System.out.println("basi : " + beginOffset + " sonu : "
+				// + endOffset);
+
+				// TODO uri
+				entities.add(new JsonEntity(namedEntity, semanticTag.getDbpediaUri(),
 						"T" + cnt, semanticTag.getType(), beginOffset,
 						endOffset));
 			}

@@ -15,16 +15,16 @@ import org.xml.sax.SAXException;
 
 import tr.edu.ege.seagent.dbpedia.DBpediaDisambiguator;
 import tr.edu.ege.seagent.dbpedia.DbpediaSearcher;
-import tr.edu.ege.seagent.dbpedia.DbpediaSearcherInFile;
 import tr.edu.ege.seagent.dbpedia.SemanticTag;
 import tr.edu.ege.seagent.deasciifier.TurkishDeasciifier;
 import tr.edu.ege.seagent.entity.Entity;
-import tr.edu.ege.seagent.json.JsonEntity;
 import tr.edu.ege.seagent.json.JSONGenerator;
+import tr.edu.ege.seagent.json.JsonEntity;
 import tr.edu.ege.seagent.letter.LetterOperator;
 import tr.edu.ege.seagent.lookup.DbpediaLookup;
 import tr.edu.ege.seagent.politics.OntoGenerator;
 import tr.edu.ege.seagent.regex.RegexOperator;
+import tr.edu.ege.seagent.vocabulary.Vocabulary;
 import tr.edu.ege.seagent.zemberek.DisambiguateSentences;
 import tr.edu.ege.seagent.zemberek.NGramOperator;
 import tr.edu.ege.seagent.zemberek.SentenceParser;
@@ -53,7 +53,6 @@ public class TextAnalyser {
 		}
 
 		TreeSet<SemanticTag> sTagList = new TreeSet<SemanticTag>();
-		// TODO BURADA SEMANTIC TAG LIST SIKINTILI
 
 		TreeSet<SemanticTag> resolveNamedEntityListLookupDbpedia = new OntoGenerator()
 				.searchInOnto(sTagList, candidateNerList, perFilePath,
@@ -63,17 +62,19 @@ public class TextAnalyser {
 			// DBpedia da çözümlenebilen CandidateNerList elemanlarını sil
 			for (SemanticTag dbpedia : resolveNamedEntityListLookupDbpedia) {
 				String obtainedNer = dbpedia.getName().replace("\"", "");
-				
+
 				// Hepsi Büyük harfle olan bir kelime geldiyse
-				if (obtainedNer.length() > 3
-						&& Character.isUpperCase(obtainedNer.charAt(4))) {
-					String oldStr = new LetterOperator().convertAllUpperCase(
-							obtainedNer);
+				if (obtainedNer.length() > new Vocabulary().WHOLE_UPPERCASE_THRESHOLD
+						&& Character
+								.isUpperCase(obtainedNer
+										.charAt(new Vocabulary().WHOLE_UPPERCASE_THRESHOLD))) {
+					String oldStr = new LetterOperator()
+							.convertAllUpperCase(obtainedNer);
 					System.out.println("[" + oldStr + "]-[" + dbpedia.getName()
 							+ "]");
 					candidateNerList.remove(new String(obtainedNer));
 				}
-				
+
 				// Jaro-Winkler e göre benzerliği bulunduysa
 				candidateNerList.remove(new String(obtainedNer));
 			}
@@ -92,7 +93,6 @@ public class TextAnalyser {
 					resolveNamedEntityLookupDbpedia);
 		}
 		return entities;
-
 	}
 
 	public void regexResolvedEntityList(TreeSet<String> candidateNerList,
@@ -395,12 +395,12 @@ public class TextAnalyser {
 		content = new TurkishDeasciifier().deasciifySentence(content,
 				deasciiFullPath);
 
-		ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
-				.regexCapitalLetterLookupPipeline(content, perFullPath,
-						locFullPath, orgFullPath);
-		String resultContent = new JSONGenerator().createJsonRegex(content,
-				regexCapitalLetterLookupPipeline);
-		System.out.println(resultContent);
+//		ArrayList<JsonEntity> regexCapitalLetterLookupPipeline = new TextAnalyser()
+//				.regexCapitalLetterLookupPipeline(content, perFullPath,
+//						locFullPath, orgFullPath);
+//		String resultContent = new JSONGenerator().createJsonRegex(content,
+//				regexCapitalLetterLookupPipeline);
+//		System.out.println(resultContent);
 
 		// String content =
 		// "Mustafa Kemal Atatürk ve İsmet İnönü, Türkiye Büyük Millet Meclisi açılışı için İstanbul'dan gelerek Ankara'da kaldılar.";

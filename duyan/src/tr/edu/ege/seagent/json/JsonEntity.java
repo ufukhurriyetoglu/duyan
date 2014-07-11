@@ -9,9 +9,14 @@ public class JsonEntity {
 	private int end;
 	private String name;
 	private String color;
-	
-	public JsonEntity(){
-		
+
+	public JsonEntity() {
+
+	}
+
+	public JsonEntity(String uri, String name) {
+		this.dbpediaUri = uri;
+		this.name = name;
 	}
 
 	public JsonEntity(String id, String type, int start, int end) {
@@ -20,12 +25,19 @@ public class JsonEntity {
 		this.start = start;
 		this.end = end;
 	}
-	
-	public JsonEntity(String name,String dbpediaUri, String id,  String type, int start, int end) {
+
+	public JsonEntity(String name, String dbpediaUri, String id, String type,
+			int start, int end) {
 		this.name = name;
 		this.dbpediaUri = dbpediaUri;
 		this.id = id;
 		this.type = type;
+		this.start = start;
+		this.end = end;
+	}
+
+	public JsonEntity(String name, int start, int end) {
+		this.name = name;
 		this.start = start;
 		this.end = end;
 	}
@@ -92,6 +104,29 @@ public class JsonEntity {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	// eliminates entities have same name,start and end positions
+	public int hashCode() {
+		int hashcode = 0;
+		hashcode = start;
+		hashcode += end;
+		hashcode += name.hashCode();
+		return hashcode;
+	}
+
+	public boolean equals(Object obj) {
+		// System.out.println("In equals");
+		if (obj instanceof JsonEntity) {
+			JsonEntity pp = (JsonEntity) obj;
+			return (pp.name.equals(this.name) && pp.start == this.start && pp.end == this.end);
+		} else {
+			return false;
+		}
+	}
+
+	public String toString() {
+		return "name: " + name + "  start: " + start + " end :" + end;
 	}
 
 }

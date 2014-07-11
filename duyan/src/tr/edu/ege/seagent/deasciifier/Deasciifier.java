@@ -115,7 +115,7 @@ public class Deasciifier {
 
 	static HashMap<String, String> turkishToggleAccentTable = new HashMap<String, String>();
 	static {
-		turkishToggleAccentTable.put("c", "ç"); // initial direction
+		turkishToggleAccentTable.put("c", "ç"); 
 		turkishToggleAccentTable.put("C", "Ç");
 		turkishToggleAccentTable.put("g", "ğ");
 		turkishToggleAccentTable.put("G", "Ğ");
@@ -127,7 +127,7 @@ public class Deasciifier {
 		turkishToggleAccentTable.put("I", "İ");
 		turkishToggleAccentTable.put("s", "ş");
 		turkishToggleAccentTable.put("S", "Ş");
-		turkishToggleAccentTable.put("ç", "c"); // other direction
+		turkishToggleAccentTable.put("ç", "c"); 
 		turkishToggleAccentTable.put("Ç", "C");
 		turkishToggleAccentTable.put("ğ", "g");
 		turkishToggleAccentTable.put("Ğ", "G");
@@ -153,18 +153,12 @@ public class Deasciifier {
 		this.turkishString = asciiString;
 	}
 
-//	public Deasciifier(String asciiString) {
-//		this();
-//		this.asciiString = asciiString;
-//		this.turkishString = asciiString;
-//	}
-
 	public void printTurkishString() {
-		System.out.println(turkishString); // with a trailing new line
+		System.out.println(turkishString); 
 	}
 
 	public void printTurkishString(PrintWriter writer) {
-		writer.println(turkishString); // without a trailing new line
+		writer.println(turkishString); 
 	}
 
 	public static String setCharAt(String mystr, int pos, String c) {
@@ -371,8 +365,6 @@ public class Deasciifier {
 			return;
 
 		turkishPatternTable = new HashMap<String, HashMap<String, Integer>>();
-		// InputStream is =
-		// this.getClass().getResourceAsStream("turkishPatternTable");
 		InputStream is;
 		try {
 			is = new FileInputStream(filePath);
@@ -387,24 +379,7 @@ public class Deasciifier {
 				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
-
-	// public static void loadPatternTableFromJsonFile(String filename){
-	// turkishPatternTable = new HashMap<String, HashMap<String, Integer>>();
-	//
-	// String fc = readFromFile(filename);
-	// JSON j = JSON.parse(fc);
-	//
-	// for (String letter : j.keySet()) {
-	// HashMap<String, Integer> hm = new HashMap<String, Integer>();
-	// for (String rec : j.get(letter).keySet()) {
-	// hm.put(rec, j.get(letter).get(rec).asInt());
-	// }
-	// turkishPatternTable.put(letter, hm);
-	// }
-	// }
-
 }

@@ -1,12 +1,21 @@
 package tr.edu.ege.seagent.dbpedia;
 
-
-public class SemanticTag implements Comparable<SemanticTag>{
+public class SemanticTag implements Comparable<SemanticTag> {
 	private String name;
-	private String oldName; // JARO_WINKLER new value, old value 
+	private String oldName; // JARO_WINKLER new value, old value
+	private String disambiguatedName;
 	private String uri;
 	private String type;
-	
+
+	public SemanticTag(String name, String oldName, String disambiguatedName,
+			String type, String uri) {
+		this.name = name;
+		this.setOldName(oldName);
+		this.setDisambiguatedName(disambiguatedName);
+		this.type = type;
+		this.uri = uri;
+	}
+
 	public SemanticTag(String name, String oldName, String type, String uri) {
 		this.name = name;
 		this.setOldName(oldName);
@@ -48,24 +57,6 @@ public class SemanticTag implements Comparable<SemanticTag>{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-
-	 @Override
-	    public boolean equals(Object o) {
-	        if (o instanceof SemanticTag) {
-	            if (name.equals(((SemanticTag) o).name) && uri == ((SemanticTag) o).uri && type.equals(((SemanticTag) o).type)) {
-	                System.out.println("List already contains this object with Name - " + name + ", uri - " + uri
-	                        + " & type - " + type);
-	                return true;
-	            }
-	        }
-	        return false;
-	    }
-
-	@Override
-	public int compareTo(SemanticTag o) {
-		return this.name.compareTo(o.name);
-	}
 
 	public String getOldName() {
 		return oldName;
@@ -73,6 +64,41 @@ public class SemanticTag implements Comparable<SemanticTag>{
 
 	public void setOldName(String oldName) {
 		this.oldName = oldName;
+	}
+
+	public String getDisambiguatedName() {
+		return disambiguatedName;
+	}
+
+	public void setDisambiguatedName(String disambiguatedName) {
+		this.disambiguatedName = disambiguatedName;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof SemanticTag) {
+			if (name.equals(((SemanticTag) o).name)
+					&& uri == ((SemanticTag) o).uri
+					&& type.equals(((SemanticTag) o).type)) {
+				System.out
+						.println("List already contains this object with Name - "
+								+ name + ", uri - " + uri + " & type - " + type);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int compareTo(SemanticTag o) {
+		return this.name.compareTo(o.name);
+	}
+
+	@Override
+	public String toString() {
+		return "name : " + name + " - oldName : " + oldName + " - disambi : "
+				+ disambiguatedName + " - type : " + type + " - Uri : " + uri;
+
 	}
 
 }
