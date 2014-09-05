@@ -43,8 +43,9 @@ public class LuceneOperator {
 
 	private static final String PUNCT_PATTERN = "['\"‘’,.:-;!-?(){}\\[\\]<>%]";
 
-	public static final String FILES_TO_INDEX_DIRECTORY = "/home/etmen/Desktop/files/";
-	public static final String INDEX_DIRECTORY = "/home/etmen/Desktop/index/";
+//	public static final String FILES_TO_INDEX_DIRECTORY = "/home/etmen/Desktop/files/";
+	public static final String FILES_TO_INDEX_DIRECTORY = "/home/etmen/Desktop/files/deneme/";
+	public static final String INDEX_DIRECTORY = "/home/etmen/Desktop/indexSF/";
 
 	public static final String FIELD_PATH = "path";
 	public static final String FIELD_URL = "url";
@@ -65,8 +66,8 @@ public class LuceneOperator {
 		// deasciify process
 		content = new TurkishDeasciifier().deasciifySentence(content,
 				deasciiFullPath);
-		// new LuceneOperator().createIndex(FILES_TO_INDEX_DIRECTORY,
-		// INDEX_DIRECTORY);
+		new LuceneOperator().createIndex(FILES_TO_INDEX_DIRECTORY,
+				INDEX_DIRECTORY);
 
 		new LuceneOperator().searchIndex(content, INDEX_DIRECTORY);
 		long passedTimeInSeconds = watch.time(TimeUnit.MILLISECONDS);
@@ -272,9 +273,9 @@ public class LuceneOperator {
 	 */
 	public String defineEntityType(String path) {
 		String type = "";
-		if (path.contains("Names")) {
+		if (path.contains("PER")) {
 			type = new Vocabulary().PER;
-		} else if (path.contains("Org")) {
+		} else if (path.contains("ORG")) {
 			type = new Vocabulary().ORG;
 		} else {
 			type = new Vocabulary().LOC;
